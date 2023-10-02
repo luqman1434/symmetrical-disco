@@ -53,5 +53,5 @@ st.sidebar.header("DataFrame Demo")
 #         **This demo requires internet access.**
 #         Connection error: %s
 #     """
-        % e.reason
-    )
+    #     % e.reason
+    # )
