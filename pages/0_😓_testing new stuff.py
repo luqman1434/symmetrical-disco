@@ -34,7 +34,7 @@ from PIL import Image
 parent_dir = os.path.dirname(os.path.dirname(__file__))
 
 # Define a list of file extensions you want to read
-extensions_to_read = ['.xlsx', '.json', '.html']
+extensions_to_read = ['.xlsx', '.geojson', '.html']
 
 # Initialize a list to store the names of the files
 file_names = []
