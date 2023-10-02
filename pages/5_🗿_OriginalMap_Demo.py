@@ -2,6 +2,9 @@ import streamlit as st
 import pandas as pd
 import geopandas as gpd
 import os
+import warnings
+with warnings.catch_warnings():
+    warnings.simplefilter("ignore")
 
 st.set_page_config(page_title="Testing", page_icon="🗿")
 st.markdown("# Testing Demo")
@@ -25,10 +28,4 @@ geojson_file = gpd.read_file(geojson_file_path)
 # with open(geojson_file) as gj_f:
 #     geojson_data = gpd.read_file(gj_f)
 
-
-st.write(data.columns.tolist())
-
-import warnings
-
-with warnings.catch_warnings():
-    warnings.simplefilter("ignore")
+st.write(xlsx.columns.tolist())
