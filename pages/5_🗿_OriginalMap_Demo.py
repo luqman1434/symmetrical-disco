@@ -13,7 +13,7 @@ xlsx = pd.read_excel(excel_file_path)
 
 # itp_area_map.html
 html_file_path = os.path.join(parent_dir, 'itp_area_map.html')
-html_file = pd.read_excel(html_file_path)
+html_file = pd.read_html(html_file_path)
 
 # msia_district.geojson
 geojson_file_path = os.path.join(parent_dir, 'msia_district.geojson')
