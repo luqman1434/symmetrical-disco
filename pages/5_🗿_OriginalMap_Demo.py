@@ -33,6 +33,7 @@ geojson_file = gpd.read_file(geojson_file_path)
 # st.write(xlsx.columns.tolist())
 
 #start here
+from branca.element import Figure
 
 # file_input = 'MMU ITP List 13_9_9_11.xlsx'
 # geojson_file = "msia_district.geojson"
