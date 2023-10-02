@@ -48,7 +48,7 @@ geojson_data = geojson_file
 
 # itp_list_state = read_file(file_input, 0)
 itp_list_state = xlsx
-text_load_state.st.text('Reading files ... Done!')
+# text_load_state.st.text('Reading files ... Done!')
 
 map_size = Figure(width=800, height=600)
 map_my = folium.Map(location=[4.2105, 108.9758], zoom_start=6)
@@ -81,7 +81,7 @@ choropleth = folium.Choropleth(
 
 folium.GeoJsonTooltip(fields=['NAME_1','NAME_2', 'count'], aliases=['State','District', 'Count']).add_to(choropleth.geojson)
 
-text_load_state.text('Plotting ...')
+# text_load_state.text('Plotting ...')
 for itp_data in itp_list_state.to_dict(orient='records'):
     latitude = itp_data['map_latitude']
     longitude = itp_data['map_longitude']
@@ -90,7 +90,7 @@ for itp_data in itp_list_state.to_dict(orient='records'):
     if not math.isnan(latitude) and not math.isnan(longitude):
         folium.Marker(location=[latitude, longitude], popup=popup_name, tooltip=company_name).add_to(map_my)
 
-text_load_state.text('Plotting ... Done!')
+# text_load_state.text('Plotting ... Done!')
 
 map_my.save('itp_area_map.html')
 p = open('itp_area_map.html')
