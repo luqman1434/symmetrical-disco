@@ -26,4 +26,6 @@ geojson_file_path = os.path.join(parent_dir, 'msia_district.geojson')
 geojson_file = gpd.read_file(geojson_file_path)
 
 
+# Show the column names
+st.markdown("### Column Names:")
 st.write(xlsx.columns.tolist())
