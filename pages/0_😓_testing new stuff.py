@@ -9,7 +9,7 @@ import pandas as pd
 from PIL import Image
 
 # Define the path to the sample.png image
-sample_image_path = '../Screenshot_360.jpg'  # Assuming sample.png is located in the parent directory
+sample_image_path = '/Screenshot_360.jpg'  # Assuming sample.png is located in the parent directory
 
 # Display the image
 sample_image = Image.open(sample_image_path)
