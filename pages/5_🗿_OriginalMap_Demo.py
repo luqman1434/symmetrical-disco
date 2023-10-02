@@ -34,6 +34,7 @@ geojson_file = gpd.read_file(geojson_file_path)
 
 #start here
 from branca.element import Figure
+import folium
 
 # file_input = 'MMU ITP List 13_9_9_11.xlsx'
 # geojson_file = "msia_district.geojson"
