@@ -2,3 +2,4 @@ openpyxl
 geopandas
 lxml
 html5lib
+beautifulsoup4
