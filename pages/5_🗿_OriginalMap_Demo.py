@@ -11,7 +11,7 @@ st.markdown("# Testing Demo")
 
 
 # # Get the parent directory of the script's directory
-# parent_dir = os.path.dirname(os.path.dirname(__file__))
+parent_dir = os.path.dirname(os.path.dirname(__file__))
 # excel_file_path = os.path.join(parent_dir, 'MMU ITP List 13_9_9_11.xlsx')
 # xlsx = pd.read_excel(excel_file_path)
 
