@@ -1,86 +1,22 @@
-
-# import streamlit as st
-# import pandas as pd
-# import altair as alt
-# from urllib.error import URLError
-
-# st.set_page_config(page_title="Pushpin Map", page_icon="🗺")
-
-# st.markdown("# Pushpin Map Demo")
-# st.sidebar.header("Pushpin Map")
-# # st.write(
-# #     """This demo shows how to use `st.write` to visualize Pandas DataFrames.
-# # (Data courtesy of the [UN Data Explorer](http://data.un.org/Explorer.aspx).)"""
-# # )
-
-
-# # @st.cache_data
-# # def get_UN_data():
-# #     AWS_BUCKET_URL = "http://streamlit-demo-data.s3-us-west-2.amazonaws.com"
-# #     df = pd.read_csv(AWS_BUCKET_URL + "/agri.csv.gz")
-# #     return df.set_index("Region")
-
-
-# # try:
-# #     df = get_UN_data()
-# #     countries = st.multiselect(
-# #         "Choose countries", list(df.index), ["China", "United States of America"]
-# #     )
-# #     if not countries:
-# #         st.error("Please select at least one country.")
-# #     else:
-# #         data = df.loc[countries]
-# #         data /= 1000000.0
-# #         st.write("### Gross Agricultural Production ($B)", data.sort_index())
-
-# #         data = data.T.reset_index()
-# #         data = pd.melt(data, id_vars=["index"]).rename(
-# #             columns={"index": "year", "value": "Gross Agricultural Product ($B)"}
-# #         )
-# #         chart = (
-# #             alt.Chart(data)
-# #             .mark_area(opacity=0.3)
-# #             .encode(
-# #                 x="year:T",
-# #                 y=alt.Y("Gross Agricultural Product ($B):Q", stack=None),
-# #                 color="Region:N",
-# #             )
-# #         )
-# #         st.altair_chart(chart, use_container_width=True)
-# # except URLError as e:
-# #     st.error(
-# #         """
-# #         **This demo requires internet access.**
-# #         Connection error: %s?
-# #     """
-
-import streamlit as st
-import pandas as pd
-
-st.set_page_config(page_title="Pushpin Map Demo", page_icon="🗺")
-st.markdown("# Pushpin Map Demo")
-
-##########################################
-
 import math
 import json
-# from turtle import color
+from turtle import color
 import warnings
 from webbrowser import BackgroundBrowser
 
-# import pandas as pd
+import pandas as pd
 import geopandas as gpd
 import folium
 
 from branca.element import Figure
 from shapely.geometry import Point
 
-# import streamlit as st
+import streamlit as st
 import streamlit.components.v1 as components
-# from streamlit_folium import st_folium
+from streamlit_folium import st_folium
 
 # Import the sidebar function from sidebar.py
-# from sidebar import sidebar
+from sidebar import sidebar
 import plotly.express as px
 
 st.markdown(
@@ -224,6 +160,32 @@ if __name__ == '__main__':
     # Save the map with markers and popups to an HTML file
     map_my.save('itp_area_map.html')
 
+    # Display the HTML file in Streamlit
+    
+
+
+    # for itp_data in itp_list_state.to_dict(orient='records'):
+    #     latitude = itp_data['map_latitude']
+    #     longitude = itp_data['map_longitude']
+    #     company_name = itp_data['Company name']
+    #     company_address = itp_data['Company address']
+    #     popup_name = '<strong>' + str(company_name) + '</strong>\n' + str(company_address)
+    #     if not math.isnan(latitude) and not math.isnan(longitude):
+    #         marker = folium.Marker(location=[latitude, longitude], popup=popup_name, tooltip=company_name)
+    #         marker.add_to(map_my)
+
+    #         # Create a function to update the sidebar with company information when marker is clicked
+    #         def update_sidebar(marker=marker, company_info_container=company_info_container):
+    #             company_info_container.write(f"**Company Name:** {company_name}")
+    #             company_info_container.write(f"**Company Address:** {company_address}")
+
+    #         # Add a click event to the marker
+    #         marker.add_to(map_my)
+    #         marker.add_child(folium.ClickForMarker(popup=update_sidebar))
+
+
+
+
 # Specify the file name
 file_name = "MMU ITP List 13_9_9_11.xlsx"
 
@@ -266,10 +228,16 @@ if df is not None:
         )
 
     # Display the plotly figure
+    
+    
     text_load_state.text('Plotting ... Done!')
 
     map_my.save('itp_area_map.html')
+    # p = open('itp_area_map.html')
     p = open('itp_area_map.html', 'r', encoding='utf-8')
     components.html(p.read(), 1000, 600)
     st.title('Company Per District')
     st.plotly_chart(fig)
+    
+
+#python -m streamlit run map_area.py
