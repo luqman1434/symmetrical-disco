@@ -40,7 +40,7 @@ geojson_file = gpd.read_file(geojson_file_path)
 # text_load_state = st.text('Reading files ...')
 # with open(geojson_file) as gj_f:
 #     geojson_data = gpd.read_file(gj_f)
-    geojson_data = geojson_file
+geojson_data = geojson_file
 
 
 # itp_list_state = read_file(file_input, 0)
