@@ -52,3 +52,9 @@ if file_names:
         st.write(file_name)
 else:
     st.write("No files with the specified extensions found in the parent directory.")
+
+
+excel_file_path = os.path.join(parent_dir, 'MMU ITP List 13_9_9_11.xlsx')
+data = pd.read_excel(excel_file_path)
+st.markdown("### Column Names:")
+st.write(data.columns.tolist())
