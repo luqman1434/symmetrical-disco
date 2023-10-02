@@ -80,7 +80,7 @@ import streamlit.components.v1 as components
 # from streamlit_folium import st_folium
 
 # Import the sidebar function from sidebar.py
-from sidebar import sidebar
+# from sidebar import sidebar
 import plotly.express as px
 
 st.markdown(
