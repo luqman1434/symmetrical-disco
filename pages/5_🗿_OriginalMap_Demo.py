@@ -12,3 +12,6 @@ excel_file_path = os.path.join(parent_dir, 'MMU ITP List 13_9_9_11.xlsx')
 data = pd.read_excel(excel_file_path)
 
 st.write(data.columns.tolist())
+
+import warnings
+
