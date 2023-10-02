@@ -11,7 +11,9 @@ import os
 parent_dir = os.path.dirname(os.path.dirname(__file__))
 
 # Define the path to the sample.png image
-sample_image_path = os.path.join(parent_dir, 'Screenshot_360.jpg')
+# sample_image_path = os.path.join(parent_dir, 'Screenshot_360.jpg')
+sample_image_path = os.path.join(parent_dir, 'mmu-multimedia-university6129.png')
+# mmu-multimedia-university6129.png
 
 # Check if the image file exists
 if os.path.exists(sample_image_path):
