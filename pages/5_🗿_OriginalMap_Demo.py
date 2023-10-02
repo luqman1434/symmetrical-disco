@@ -18,6 +18,8 @@ st.write(
 
 # Get the parent directory of the script's directory
 parent_dir = os.path.dirname(os.path.dirname(__file__))
+text_load_state = st.text('Reading files ...')
+
 
 # MMU ITP List 13_9_9_11.xlsx
 excel_file_path = os.path.join(parent_dir, 'MMU ITP List 13_9_9_11.xlsx')
