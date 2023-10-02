@@ -43,6 +43,6 @@ st.markdown(
         - Faculty
         - Others
     - A range based company locater which students can input (District/Lat-Long/etc) and find companies within a certain range close to them
-    - Other features
+    - Other features to be discussed
 """
 )
