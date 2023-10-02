@@ -46,6 +46,9 @@ import pandas as pd
 st.set_page_config(page_title="Testing", page_icon="😓")
 st.markdown("# Testing Demo")
 
+from PIL import Image
+import os
+
 # Get the parent directory of the script's directory
 parent_dir = os.path.dirname(os.path.dirname(__file__))
 
