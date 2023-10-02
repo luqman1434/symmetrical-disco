@@ -4,7 +4,7 @@ import pandas as pd
 import altair as alt
 from urllib.error import URLError
 
-st.set_page_config(page_title="DataFrame Demo", page_icon="📊")
+st.set_page_config(page_title="DataFrame Demo", page_icon="🗺")
 
 st.markdown("# DataFrame Demo")
 st.sidebar.header("DataFrame Demo")
