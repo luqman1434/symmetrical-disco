@@ -33,8 +33,8 @@ st.markdown(
     The main function of this website is to provide a compiled list of companies which future students can look up in an interactive site, 
     and also providing other functionalities. 
     
-    **👈 Select a page from the sidebar** to see some examples of what functionalities that we have currently!
-    ### What functionalities that we have?
+    **👈 Select a page from the sidebar** to see some examples of what functionalities that we have!
+    ### What functionalities that we have currently?
     - A map of Malaysia with pushpins showing the exact locations of each company
     - Graphs to provide a breakdown of the amount of companies inside each District and State
     ### Other functionalities to add?
