@@ -32,6 +32,7 @@ st.markdown(
     This is a website designed in September/October 2023 by GLIE Interns for our internship program. 
     The main function of this website is to provide a compiled list of companies which future students can look up in an interactive site, 
     and also providing other functionalities. 
+    
     **👈 Select a page from the sidebar** to see some examples of what functionalities that we have!
     ### What functionalities that we have?
     - A map of Malaysia with pushpins showing the exact locations of each company
