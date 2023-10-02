@@ -34,7 +34,7 @@ with open(html_file_path, 'r') as f:
 # msia_district.geojson
 geojson_file_path = os.path.join(parent_dir, 'msia_district.geojson')
 geojson_file = gpd.read_file(geojson_file_path)
-
+text_load_state.text('Reading files ... Done!')
 
 # # Show the column names
 # st.markdown("### Column Names:")
