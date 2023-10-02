@@ -80,4 +80,4 @@ for row in data:
     st.markdown(f"**Intern:** {row['Intern']}")
     st.markdown(f"**Work Currently Doing:** {row['Work Currently Doing']}")
     # st.markdown(f"**Est time finish:** {row['Est time finish']}\n---")
-    st.markdown(f"**Work Currently Doing:** {row['Work Currently Doing']}")
+    st.markdown(f"**Est time finish:** {row['Est time finish']}")
