@@ -31,7 +31,7 @@ st.markdown("# Testing Demo")
 from PIL import Image
 
 # Get the parent directory of the script's directory
-parent_dir = os.path.dirname(os.path.dirname(__file()))
+parent_dir = os.path.dirname(os.path.dirname(__file__))
 
 # Define a list of file extensions you want to read
 extensions_to_read = ['.xlsx', '.json', '.html']
