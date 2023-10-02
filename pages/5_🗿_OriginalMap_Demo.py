@@ -26,4 +26,4 @@ geojson_file_path = os.path.join(parent_dir, 'msia_district.geojson')
 geojson_file = gpd.read_file(geojson_file_path)
 
 
-# st.write(xlsx.columns.tolist())
+st.write(xlsx.columns.tolist())
