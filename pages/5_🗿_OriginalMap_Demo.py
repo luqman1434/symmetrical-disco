@@ -48,7 +48,7 @@ geojson_data = geojson_file
 
 # itp_list_state = read_file(file_input, 0)
 itp_list_state = xlsx
-text_load_state.text('Reading files ... Done!')
+text_load_state.st.text('Reading files ... Done!')
 
 map_size = Figure(width=800, height=600)
 map_my = folium.Map(location=[4.2105, 108.9758], zoom_start=6)
