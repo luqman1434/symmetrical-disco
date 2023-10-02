@@ -6,9 +6,15 @@ import warnings
 with warnings.catch_warnings():
     warnings.simplefilter("ignore")
 
-st.set_page_config(page_title="Testing", page_icon="🗿")
-st.markdown("# Testing Demo")
-
+st.set_page_config(page_title="Original PushpinMap Demo", page_icon="🗿")
+st.markdown("# PushpinMap Demo")
+##
+st.sidebar.header("PushpinMap Demo")
+st.write(
+    """This demo shows our inital upload of the PushpinMap which shows the entirety of Malaysia and labels for each of the companies within it. It also shows the 
+    heatmap of where the companies currently are."""
+)
+##
 
 # Get the parent directory of the script's directory
 parent_dir = os.path.dirname(os.path.dirname(__file__))
