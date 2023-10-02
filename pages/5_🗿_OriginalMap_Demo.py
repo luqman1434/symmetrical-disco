@@ -22,7 +22,6 @@ html_file_path = os.path.join(parent_dir, 'itp_area_map.html')
 # html_file = pd.read_html(html_file_path)
 with open(html_file_path, 'r') as f:
     html_file = f.read()
-    # st.markdown(html_content, unsafe_allow_html=True)
 
 # msia_district.geojson
 geojson_file_path = os.path.join(parent_dir, 'msia_district.geojson')
