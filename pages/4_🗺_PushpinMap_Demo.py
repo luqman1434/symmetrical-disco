@@ -51,7 +51,7 @@
 # #     st.error(
 # #         """
 # #         **This demo requires internet access.**
-# #         Connection error: %s
+# #         Connection error: %s?
 # #     """
 
 
