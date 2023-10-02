@@ -1,13 +1,13 @@
 import streamlit as st
 
 st.set_page_config(
-    page_title="Hello",
-    page_icon="👋",
+    page_title="GLIE",
+    page_icon="👨‍🎓",
 )
 
-st.write("# Welcome to Streamlit! 👋")
+st.write("# GLIE Internship Website 👨‍🎓")
 
-st.sidebar.success("Select a demo above.")
+st.sidebar.success("Select a function above.")
 
 st.markdown(
     """
