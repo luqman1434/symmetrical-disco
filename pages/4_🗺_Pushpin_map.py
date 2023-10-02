@@ -61,6 +61,6 @@
 import streamlit as st
 import pandas as pd
 
-st.set_page_config(page_title="Pushpin Map", page_icon="🗺")
+st.set_page_config(page_title="Pushpin Map Demo", page_icon="🗺")
 
 st.markdown("# Pushpin Map Demo")
