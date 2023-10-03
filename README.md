@@ -1,4 +1,4 @@
 # symmetrical-disco
 
-## map_area.py
-- this is the main original file that we are working with
+## archive
+- this is the historical files with the previous iterations of work
