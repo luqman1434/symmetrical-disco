@@ -5,4 +5,3 @@ html5lib
 beautifulsoup4
 branca
 folium
-_tkinter
