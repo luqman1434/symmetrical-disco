@@ -52,7 +52,7 @@ import streamlit.components.v1 as components
 
 # import math
 import json
-# from turtle import color
+from turtle import color
 # import warnings
 # from webbrowser import BackgroundBrowser
 
