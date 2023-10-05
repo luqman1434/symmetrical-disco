@@ -6,7 +6,7 @@ import warnings
 with warnings.catch_warnings():
     warnings.simplefilter("ignore")
 
-st.set_page_config(page_title="2nd Graph Demo", page_icon="📊") #📊_GraphingDataset_Demo.py
+st.set_page_config(page_title="2nd Graph Demo", page_icon="📈") #📈_GraphingDataset_Demo.py
 st.markdown("# 2nd Graph Demo")
 ##
 st.sidebar.header("2nd Graph Demo")
