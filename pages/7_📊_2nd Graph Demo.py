@@ -6,10 +6,10 @@ import warnings
 with warnings.catch_warnings():
     warnings.simplefilter("ignore")
 
-st.set_page_config(page_title="Graphing Dataset Demo", page_icon="📊") #📊_GraphingDataset_Demo.py
-st.markdown("# Graphing Demo")
+st.set_page_config(page_title="2nd Graph Demo", page_icon="📊") #📊_GraphingDataset_Demo.py
+st.markdown("# 2nd Graph Demo")
 ##
-st.sidebar.header("Graphing Demo")
+st.sidebar.header("2nd Graph Demo")
 st.write(
     """This part of the website shows a general overview of the data in terms of how much companies are in each state, broken down into district. This can show in what states and districts are the companies most 
     grouped in, inside Malaysia"""
