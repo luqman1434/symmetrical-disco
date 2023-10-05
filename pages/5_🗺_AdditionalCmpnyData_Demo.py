@@ -68,8 +68,8 @@ from branca.element import Figure
 from shapely.geometry import Point
 
 # import streamlit as st #done
-# import streamlit.components.v1 as components
-# from streamlit_folium import st_folium
+import streamlit.components.v1 as components
+from streamlit_folium import st_folium
 
 # # Import the sidebar function from sidebar.py
 # from sidebar import sidebar
