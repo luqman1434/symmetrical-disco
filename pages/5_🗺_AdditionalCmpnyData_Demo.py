@@ -73,7 +73,7 @@ from streamlit_folium import st_folium
 
 # # Import the sidebar function from sidebar.py
 # from sidebar import sidebar
-# import plotly.express as px
+import plotly.express as px
 
 # st.markdown(
 #     """
