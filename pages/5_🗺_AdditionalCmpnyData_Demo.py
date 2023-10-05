@@ -106,27 +106,27 @@ st.image(logo_image, use_column_width=False, caption='', width=200, )
 
 # 3.16000, 101.71000 : Kuala Lumpur
 
-def set_background_color(color):
-    """
-    Set the background color of the Streamlit app.
+# def set_background_color(color):
+#     """
+#     Set the background color of the Streamlit app.
     
-    Args:
-        color (str): The background color in CSS format (e.g., 'lightblue').
-    """
-    # Generate HTML code to set the background color
-    html_code = f"""
-    <style>
-    body {{
-        background-color: {color};
-    }}
-    </style>
-    """
+#     Args:
+#         color (str): The background color in CSS format (e.g., 'lightblue').
+#     """
+#     # Generate HTML code to set the background color
+#     html_code = f"""
+#     <style>
+#     body {{
+#         background-color: {color};
+#     }}
+#     </style>
+#     """
     
-    # Apply the HTML code using st.markdown
-    st.markdown(html_code, unsafe_allow_html=True)
+#     # Apply the HTML code using st.markdown
+#     st.markdown(html_code, unsafe_allow_html=True)
 
 # Use the set_background_color function to set the background color
-set_background_color('lightblue')
+# set_background_color('lightblue')
 
 # def read_file(filename, sheetname):
 #     excel_file = pd.ExcelFile(filename)
