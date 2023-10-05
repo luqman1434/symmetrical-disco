@@ -52,7 +52,11 @@ import streamlit.components.v1 as components
 
 # import math
 import json
+
+# this specifically is one of the issues in the code
+# color unsure what to import
 # from turtle import color
+
 # import warnings
 # from webbrowser import BackgroundBrowser
 
@@ -60,7 +64,7 @@ import json
 # import geopandas as gpd
 # import folium
 
-# from branca.element import Figure
+from branca.element import Figure
 # from shapely.geometry import Point
 
 # import streamlit as st
