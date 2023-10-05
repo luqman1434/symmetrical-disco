@@ -65,7 +65,7 @@ from webbrowser import BackgroundBrowser
 # import folium #done
 
 from branca.element import Figure
-# from shapely.geometry import Point
+from shapely.geometry import Point
 
 # import streamlit as st #done
 # import streamlit.components.v1 as components
