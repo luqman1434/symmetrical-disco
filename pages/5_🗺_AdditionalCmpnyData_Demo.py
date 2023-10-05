@@ -75,26 +75,26 @@ from streamlit_folium import st_folium
 # from sidebar import sidebar
 import plotly.express as px
 
-# st.markdown(
-#     """
-#     <style>
-#     body {
-#         background-image: url('background.jpg'); 
-#         background-repeat: no-repeat;
-#         background-size: cover;
-#         background-attachment: fixed;
-#     }
+st.markdown(
+    """
+    <style>
+    body {
+        background-image: url('background.jpg'); 
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
+    }
 
-#     .logo {
-#         position: absolute;
-#         top: 20px;
-#         right: 20px;
-#         width: 100px;
-#     }
-#     </style>
-#     """,
-#     unsafe_allow_html=True
-# )
+    .logo {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 100px;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
  
 # st.image('mmu-multimedia-university6129.png', use_column_width=False, caption='', width=200, )
 
