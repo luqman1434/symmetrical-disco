@@ -142,7 +142,7 @@ st.title('Available ITP companies in Malaysia')
 
 
 # Create an empty space in the sidebar to display company information
-company_info_container = st.empty()
+# company_info_container = st.empty() #not currently used right now
 
 # file_input = 'MMU ITP List 13_9_9_11.xlsx'
 # geojson_file = "msia_district.geojson"
