@@ -138,7 +138,7 @@ set_background_color('lightblue')
 # if __name__ == '__main__':
 st.title('Available ITP companies in Malaysia')
 # Call the sidebar function to include it in your app
-sidebar()
+# sidebar()
 
 
 # Create an empty space in the sidebar to display company information
