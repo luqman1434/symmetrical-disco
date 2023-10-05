@@ -69,7 +69,7 @@ from shapely.geometry import Point
 
 # import streamlit as st #done
 import streamlit.components.v1 as components
-# from streamlit_folium import st_folium #seems to have an issue
+from streamlit_folium import st_folium #seems to have an issue
 
 # # Import the sidebar function from sidebar.py
 # from sidebar import sidebar
