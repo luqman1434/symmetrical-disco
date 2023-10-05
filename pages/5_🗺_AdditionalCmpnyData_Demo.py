@@ -225,6 +225,8 @@ for itp_data in itp_list_state.to_dict(orient='records'):
 
 # Save the map with markers and popups to an HTML file
 map_my.save('itp_area_map.html')
+p = open('itp_area_map.html')
+components.html(p.read(), 800, 480)
 
     # Display the HTML file in Streamlit
     
