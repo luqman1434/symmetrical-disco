@@ -3,7 +3,16 @@ import pandas as pd
 import plotly.express as px
 
 # Load data from the 'ngee.csv' file (replace with your actual file path if needed)
-data = pd.read_csv('MMU ITP List.csv')
+# data = pd.read_csv('MMU ITP List.csv')
+# Specify the file name
+file_name = "MMU ITP List 13_9_9_11.xlsx"
+
+try:
+    df = pd.read_excel(file_name, engine='openpyxl')
+except FileNotFoundError:
+    st.error(f"File '{file_name}' not found.")
+
+
 
 # Streamlit app
 st.title("Pie Chart Filter")
