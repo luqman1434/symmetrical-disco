@@ -95,8 +95,14 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
- 
+
+from PIL import Image
+logo_image = Image.open('mmu-multimedia-university6129.png')
+
+
 # st.image('mmu-multimedia-university6129.png', use_column_width=False, caption='', width=200, )
+st.image(logo_image, use_column_width=False, caption='', width=200, )
+
 
 # # 3.16000, 101.71000 : Kuala Lumpur
 
