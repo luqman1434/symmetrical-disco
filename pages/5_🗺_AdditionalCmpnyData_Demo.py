@@ -57,17 +57,17 @@ import json
 # color unsure what to import
 # from turtle import color
 
-# import warnings
-# from webbrowser import BackgroundBrowser
+# import warnings #done
+from webbrowser import BackgroundBrowser
 
-# import pandas as pd
-# import geopandas as gpd
-# import folium
+# import pandas as pd #done
+# import geopandas as gpd #done
+# import folium #done
 
 from branca.element import Figure
 # from shapely.geometry import Point
 
-# import streamlit as st
+# import streamlit as st #done
 # import streamlit.components.v1 as components
 # from streamlit_folium import st_folium
 
