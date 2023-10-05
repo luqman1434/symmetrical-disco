@@ -6,3 +6,4 @@ beautifulsoup4
 branca
 folium
 streamlit_folium
+plotly.express
