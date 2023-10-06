@@ -44,9 +44,5 @@ st.markdown(
         - Others
     - A range based company locater which students can input (District/Lat-Long/etc) and find companies within a certain range close to them
     - Other features to be discussed
-
-    ### What other work that needs to be done right now?
-    - Adding everyone's code inside the file right now
-    - The two graph files inside
 """
 )
