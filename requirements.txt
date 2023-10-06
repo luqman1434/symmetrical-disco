@@ -7,4 +7,3 @@ branca
 folium
 streamlit_folium
 plotly.express
-streamlit
