@@ -1,3 +1,21 @@
+import streamlit as st
+import pandas as pd
+import geopandas as gpd
+import os
+import warnings
+with warnings.catch_warnings():
+    warnings.simplefilter("ignore")
+
+st.set_page_config(page_title="2nd Graph Choropleth Demo", page_icon="🗺")
+st.markdown("# 2nd Graph Choropleth Demo")
+##
+st.sidebar.header("2nd Graph Choropleth Demo Demo")
+st.write(
+    """This version of the map shows how the map works with two different filters. One of the filters toggle the choropleth mask on/off on the filter. Another one of the filters toggle on the activation of the 
+    pushpins so we can focus on specific filters inside the map."""
+)
+##
+
 import math
 import json
 import warnings
