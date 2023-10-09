@@ -55,6 +55,7 @@ def plot_choropleth(map_obj, show_choropleth=True):
 
 if __name__ == '__main__':
     st.title('Available ITP companies in Malaysia')
+    details_placeholder = st.sidebar.empty()  # Create a placeholder for details
 
     file_input = 'MMU ITP List 13_9_9_11.xlsx'
     geojson_file = "msia_district.geojson"
