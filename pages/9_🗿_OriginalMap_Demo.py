@@ -97,11 +97,15 @@ if __name__ == '__main__':
             details_html = f"<h3>{company_name}</h3><p>{itp_data['Company address']}</p>"
             marker = folium.Marker(location=[latitude, longitude], popup=popup_name, tooltip=company_name)
 
-            def on_marker_click(e):
-                st.sidebar.markdown(details_html, unsafe_allow_html=True)
-
-            marker.add_child(folium.ClickForMarker(callback=on_marker_click))
-            marker.add_to(map_my)
+            # Define a custom click event handler to update the sidebar
+            js_click_handler = f"""
+                function onClick() {{
+                    parent.postMessage({{ value: '{details_html}' }}, '*');
+                }}
+                this.on('click', onClick);
+            """
+            marker.add_child(folium.CustomPane('clickable')).add_to(map_my)
+            map_my.get_root().html.add_child(folium.Element(js_click_handler))
 
     text_load_state.text('Plotting ... Done!')
     
