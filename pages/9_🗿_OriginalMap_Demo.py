@@ -96,9 +96,9 @@ if __name__ == '__main__':
         popup_name = '<strong>' + str(itp_data['Company name']) + '</strong>\n' + str(itp_data['Company address'])
         if not math.isnan(latitude) and not math.isnan(longitude):
             details_html = f"<h3>{company_name}</h3><p>{itp_data['Company address']}</p>"       
-            details_placeholder = st.sidebar.empty()  # Create a placeholder for details
             marker=folium.Marker(location=[latitude, longitude], popup=popup_name, tooltip=company_name).add_to(map_my)
-            marker.add_child(folium.Popup(folium.Html(details_html)))
+            if marker.add_child(folium.Popup(folium.Html(details_html))):
+                details_placeholder.markdown(details_html,unsafe_allow_html=True)
 
     text_load_state.text('Plotting ... Done!')
     
