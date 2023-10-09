@@ -55,7 +55,6 @@ def plot_choropleth(map_obj, show_choropleth=True):
 
 if __name__ == '__main__':
     st.title('Available ITP companies in Malaysia')
-    details_placeholder = st.sidebar.empty()  # Create a placeholder for details
 
     file_input = 'MMU ITP List 13_9_9_11.xlsx'
     geojson_file = "msia_district.geojson"
@@ -95,10 +94,14 @@ if __name__ == '__main__':
         company_name = itp_data['Company name']
         popup_name = '<strong>' + str(itp_data['Company name']) + '</strong>\n' + str(itp_data['Company address'])
         if not math.isnan(latitude) and not math.isnan(longitude):
-            details_html = f"<h3>{company_name}</h3><p>{itp_data['Company address']}</p>"       
-            marker=folium.Marker(location=[latitude, longitude], popup=popup_name, tooltip=company_name).add_to(map_my)
-            if marker.add_child(folium.Popup(folium.Html(details_html))):
-                details_placeholder.markdown(details_html,unsafe_allow_html=True)
+            details_html = f"<h3>{company_name}</h3><p>{itp_data['Company address']}</p>"
+            marker = folium.Marker(location=[latitude, longitude], popup=popup_name, tooltip=company_name)
+
+            def on_marker_click(e):
+                st.sidebar.markdown(details_html, unsafe_allow_html=True)
+
+            marker.add_child(folium.ClickForMarker(callback=on_marker_click))
+            marker.add_to(map_my)
 
     text_load_state.text('Plotting ... Done!')
     
