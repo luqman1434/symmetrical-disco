@@ -90,4 +90,18 @@ if show_choropleth:
     plot_choropleth(map_my)
 
 map_my.save('itp_area_map.html')
-p = open('itp_area
+p = open('itp_area_map.html')
+components.html(p.read(), 800, 480)
+
+# Listening for custom event from JavaScript and display the details in Streamlit sidebar
+events = components.html(js_code + "<script>" + 
+    "document.addEventListener('STREAMLIT_EVENT', function(e){" + 
+    "window.Streamlit.setComponentValue(e.detail);" +
+    "});" +
+    "</script>", height=0)  # The component is invisible
+
+if events:
+    company_name, company_address = events
+    st.sidebar.markdown("### Company Details")
+    st.sidebar.text("Name: " + company_name)
+    st.sidebar.text("Address: " + company_address)
