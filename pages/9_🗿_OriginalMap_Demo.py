@@ -94,4 +94,3 @@ if __name__ == '__main__':
         plot_choropleth(map_size)
 
     components.html(map_size._repr_html_(), height=600, width=800)
-
