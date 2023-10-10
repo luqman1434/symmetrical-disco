@@ -1,10 +1,21 @@
 import streamlit as st
 import pandas as pd
 import geopandas as gpd
-import os
 import warnings
-with warnings.catch_warnings():
-    warnings.simplefilter("ignore")
+import math
+import json
+import folium
+from branca.element import Figure
+from shapely.geometry import Point
+import streamlit.components.v1 as components
+
+# Define a JavaScript function to send data to Streamlit
+js_code = """
+function sendDataToStreamlit(data){
+    const event = new CustomEvent("STREAMLIT_EVENT", {detail: data});
+    document.dispatchEvent(event);
+}
+"""
 
 st.set_page_config(page_title="2nd Graph Choropleth Demo", page_icon="🗺")
 st.markdown("# 2nd Graph Choropleth Demo")
@@ -15,16 +26,6 @@ st.write(
     pushpins so we can focus on specific filters inside the map."""
 )
 
-import math
-import json
-import warnings
-
-import pandas as pd
-import geopandas as gpd
-import folium
-from shapely.geometry import Point
-
-# Define the function to read the Excel file
 def read_file(filename, sheetname):
     excel_file = pd.ExcelFile(filename)
     data_d = excel_file.parse(sheet_name=sheetname)
@@ -48,49 +49,45 @@ def plot_choropleth(map_obj, show_choropleth=True):
         ).add_to(map_obj)
         folium.GeoJsonTooltip(fields=['NAME_1','NAME_2', 'count'], aliases=['State','District', 'Count']).add_to(choropleth.geojson)
 
-if __name__ == '__main__':
-    st.title('Available ITP companies in Malaysia')
+file_input = 'MMU ITP List 13_9_9_11.xlsx'
+geojson_file = "msia_district.geojson"
 
-    file_input = 'MMU ITP List 13_9_9_11.xlsx'
-    geojson_file = "msia_district.geojson"
+with open(geojson_file, encoding='utf-8', errors='ignore') as gj_f:
+    geojson_data = gpd.read_file(gj_f)
 
-    text_load_state = st.text('Reading files ...')
-    with open(geojson_file, encoding='utf-8', errors='ignore') as gj_f:
-        geojson_data = gpd.read_file(gj_f)
+itp_list_state = read_file(file_input, 0)
+map_size = Figure(width=800, height=600)
+map_my = folium.Map(location=[4.2105, 108.9758], zoom_start=6)
+map_size.add_child(map_my)
 
-    itp_list_state = read_file(file_input, 0)
-    text_load_state.text('Reading files ... Done!') 
+itp_list_state['geometry'] = itp_list_state.apply(lambda x: Point(x['map_longitude'], x['map_latitude']), axis=1)
+itp_list_state = gpd.GeoDataFrame(itp_list_state, geometry='geometry')
 
-    map_size = folium.Map(location=[4.2105, 108.9758], zoom_start=6)
+selected_states = st.multiselect('Select States', itp_list_state['STATE'].unique())
+filtered_data = itp_list_state[itp_list_state['STATE'].isin(selected_states)]
+joined_data = gpd.sjoin(geojson_data, filtered_data, op="contains").groupby(["NAME_1", "NAME_2"]).size().reset_index(name="count")
 
-    itp_list_state['geometry'] = itp_list_state.apply(lambda x: Point(x['map_longitude'], x['map_latitude']), axis=1)
-    itp_list_state = gpd.GeoDataFrame(itp_list_state, geometry='geometry')
+merged_gdf = geojson_data.merge(joined_data, on=["NAME_1", "NAME_2"], how="left")
+merged_gdf['count'].fillna(0, inplace=True)
+threshold_scale = [0, 1, 2, 4, 8, 16, 32, 64, 128, 200, 300, 400]
 
-    selected_states = st.multiselect('Select States', itp_list_state['STATE'].unique())
+for itp_data in filtered_data.to_dict(orient='records'):
+    latitude = itp_data['map_latitude']
+    longitude = itp_data['map_longitude']
+    company_name = itp_data['Company name']
+    company_address = itp_data['Company address']
+    popup_name = '<strong>' + str(company_name) + '</strong>\n' + str(company_address)
     
-    filtered_data = itp_list_state[itp_list_state['STATE'].isin(selected_states)]
+    # Create a marker with a custom popup click event that sends the data to Streamlit using our JS function
+    marker = folium.Marker(location=[latitude, longitude], tooltip=company_name)
+    popup = folium.Popup(popup_name, max_width=300)
+    popup.add_child(folium.Html('<div onclick="sendDataToStreamlit([\'' + company_name + '\',\'' + company_address + '\'])">' + popup_name + '</div>', script=True))
+    marker.add_child(popup)
+    marker.add_to(map_my)
 
-    joined_data = gpd.sjoin(geojson_data, filtered_data, op="contains").groupby(["NAME_1", "NAME_2"]).size().reset_index(name="count")
+show_choropleth = st.checkbox("Show Choropleth", value=False)
+if show_choropleth:
+    plot_choropleth(map_my)
 
-    merged_gdf = geojson_data.merge(joined_data, on=["NAME_1", "NAME_2"], how="left")
-    merged_gdf['count'].fillna(0, inplace=True)
-
-    threshold_scale = [0, 1, 2, 4, 8, 16, 32, 64, 128, 200, 300, 400] 
-
-    text_load_state.text('Plotting ...')
-    for itp_data in filtered_data.to_dict(orient='records'):
-        latitude = itp_data['map_latitude']
-        longitude = itp_data['map_longitude']
-        company_name = itp_data['Company name']
-        popup_name = f'<strong>{itp_data["Company name"]}</strong><br>{itp_data["Company address"]}'
-        if not math.isnan(latitude) and not math.isnan(longitude):
-            marker = folium.Marker(location=[latitude, longitude], popup=popup_name, tooltip=company_name)
-            marker.add_to(map_size)
-
-    text_load_state.text('Plotting ... Done!')
-    
-    show_choropleth = st.checkbox("Show Choropleth", value=False)
-    if show_choropleth:
-        plot_choropleth(map_size)
-
-    components.html(map_size._repr_html_(), height=600, width=800)
+map_my.save('itp_area_map.html')
+p = open('itp_area
