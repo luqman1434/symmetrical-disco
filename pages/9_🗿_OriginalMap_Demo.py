@@ -55,7 +55,7 @@ filtered_df = filtered_df[filtered_df['STATE'].isin(selected_states)]
 # Define a function to create an HTML card for each company
 def create_card(row):
     card = f"""
-    <div style="border:1px solid #eee; border-radius:5px; padding:10px; margin:5px; width: 30%; height: 250px; overflow: auto; display:inline-block; vertical-align:top">
+    <div style="border:1px solid #eee; border-radius:5px; padding:10px; margin:5px; width: 30%; height: 300px; overflow: auto; display:inline-block; vertical-align:top">
         <h4>{row['Company name']}</h4>
         <p>{row['Company address']}</p>
         <p><a href="{row['website_url']}" target="_blank">{row['website_url']}</a></p>
