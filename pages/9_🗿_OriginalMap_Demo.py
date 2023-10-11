@@ -52,7 +52,25 @@ else:
 
 filtered_df = filtered_df[filtered_df['STATE'].isin(selected_states)]
 
-# Display the filtered data
-st.write(filtered_df[columns_to_display])
+# Define a function to create an HTML card for each company
+def create_card(row):
+    card = f"""
+    <div style="border:1px solid #eee; border-radius:5px; padding:10px; margin:5px; width: 11%; display:inline-block">
+        <h4>{row['Company name']}</h4>
+        <p>{row['Company address']}</p>
+        <p><a href="{row['website_url']}" target="_blank">{row['website_url']}</a></p>
+        <p>{row['Company Tel']}</p>
+        <p>{row['Company Email']}</p>
+    </div>
+    """
+    return card
+
+# Convert the filtered DataFrame to HTML cards
+cards = filtered_df[columns_to_display].apply(create_card, axis=1).tolist()
+
+# Display the cards in chunks of 8
+for i in range(0, len(cards), 8):
+    row_cards = ''.join(cards[i:i+8])
+    st.markdown(row_cards, unsafe_allow_html=True)
 
 # Run this by typing 'streamlit run app.py' in the terminal
