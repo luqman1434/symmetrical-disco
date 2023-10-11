@@ -6,7 +6,7 @@ import pandas as pd
 @st.cache
 def load_data():
     # Assuming the Excel file is named "companies.xlsx" and the sheet name is "Sheet1"
-    data = pd.read_excel("companies.xlsx", engine="openpyxl")
+    data = pd.read_excel("MMU ITP List 13_9_9_11.xlsx", engine="openpyxl")
     return data
 
 df = load_data()
