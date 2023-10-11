@@ -8,12 +8,13 @@ with warnings.catch_warnings():
 
 st.set_page_config(page_title="2nd Graph Choropleth Demo", page_icon="🗺")
 st.markdown("# 2nd Graph Choropleth Demo")
-
+##
 st.sidebar.header("2nd Graph Choropleth Demo Demo")
 st.write(
     """This version of the map shows how the map works with two different filters. One of the filters toggle the choropleth mask on/off on the filter. Another one of the filters toggle on the activation of the 
     pushpins so we can focus on specific filters inside the map."""
 )
+##sssas
 
 import math
 import json
@@ -94,15 +95,8 @@ if __name__ == '__main__':
         company_name = itp_data['Company name']
         popup_name = '<strong>' + str(itp_data['Company name']) + '</strong>\n' + str(itp_data['Company address'])
         if not math.isnan(latitude) and not math.isnan(longitude):
-            details_html = f"<h3>{company_name}</h3><p>{itp_data['Company address']}</p>"
-            marker = folium.Marker(location=[latitude, longitude], popup=popup_name, tooltip=company_name)
-
-            def on_marker_click(e):
-                st.sidebar.markdown(details_html, unsafe_allow_html=True)
-
-            marker.add_child(folium.ClickForMarker(callback=on_marker_click))
-            marker.add_to(map_my)
-
+            folium.Marker(location=[latitude, longitude], popup=popup_name, tooltip=company_name).add_to(map_my)
+    
     text_load_state.text('Plotting ... Done!')
     
     show_choropleth = st.checkbox("Show Choropleth", value=False)
