@@ -9,14 +9,6 @@ from branca.element import Figure
 from shapely.geometry import Point
 import streamlit.components.v1 as components
 
-# Define a JavaScript function to send data to Streamlit
-js_code = """
-function sendDataToStreamlit(data){
-    const event = new CustomEvent("STREAMLIT_EVENT", {detail: data});
-    document.dispatchEvent(event);
-}
-"""
-
 st.set_page_config(page_title="2nd Graph Choropleth Demo", page_icon="🗺")
 st.markdown("# 2nd Graph Choropleth Demo")
 
@@ -78,11 +70,10 @@ for itp_data in filtered_data.to_dict(orient='records'):
     company_address = itp_data['Company address']
     popup_name = '<strong>' + str(company_name) + '</strong>\n' + str(company_address)
     
-    # Create a marker with a custom popup click event that sends the data to Streamlit using our JS function
-    marker = folium.Marker(location=[latitude, longitude], tooltip=company_name)
-    popup = folium.Popup(popup_name, max_width=300)
-    popup.add_child(folium.Html('<div onclick="sendDataToStreamlit([\'' + company_name + '\',\'' + company_address + '\'])">' + popup_name + '</div>', script=True))
-    marker.add_child(popup)
+    # Embed the data in the HTML, which the user can click to "copy"
+    embedded_data = '<div data-name="' + company_name + '" data-address="' + company_address + '" onclick="window.clickedCompany=this;">' + popup_name + '</div>'
+    popup = folium.Popup(embedded_data, max_width=300)
+    marker = folium.Marker(location=[latitude, longitude], tooltip=company_name, popup=popup)
     marker.add_to(map_my)
 
 show_choropleth = st.checkbox("Show Choropleth", value=False)
@@ -93,15 +84,28 @@ map_my.save('itp_area_map.html')
 p = open('itp_area_map.html')
 components.html(p.read(), 800, 480)
 
-# Listening for custom event from JavaScript and display the details in Streamlit sidebar
-events = components.html(js_code + "<script>" + 
-    "document.addEventListener('STREAMLIT_EVENT', function(e){" + 
-    "window.Streamlit.setComponentValue(e.detail);" +
-    "});" +
-    "</script>", height=0)  # The component is invisible
+# JavaScript to get the clicked company data and set the session state
+js_code = """
+<script>
+window.clickedCompany = null;
+function saveClickedCompany(){
+    if(window.clickedCompany){
+        const name = window.clickedCompany.getAttribute('data-name');
+        const address = window.clickedCompany.getAttribute('data-address');
+        window.Streamlit.setSessionState({'selected_company': {'name': name, 'address': address}});
+    }
+}
+</script>
+"""
+components.html(js_code, height=0)
 
-if events:
-    company_name, company_address = events
+# Using session state to show the company details
+if "selected_company" not in st.session_state:
+    st.session_state.selected_company = {"name": "", "address": ""}
+
+if st.sidebar.button("Show Clicked Company Details"):
+    company_name = st.session_state.selected_company["name"]
+    company_address = st.session_state.selected_company["address"]
     st.sidebar.markdown("### Company Details")
     st.sidebar.text("Name: " + company_name)
     st.sidebar.text("Address: " + company_address)
