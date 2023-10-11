@@ -69,8 +69,8 @@ def create_card(row):
 cards = filtered_df[columns_to_display].apply(create_card, axis=1).tolist()
 
 # Display the cards in chunks of 8
-for i in range(0, len(cards), 5):
-    row_cards = ''.join(cards[i:i+8])
+for i in range(0, len(cards), 2):
+    row_cards = ''.join(cards[i:i+2])
     st.markdown(row_cards, unsafe_allow_html=True)
 
 # Run this by typing 'streamlit run app.py' in the terminal
