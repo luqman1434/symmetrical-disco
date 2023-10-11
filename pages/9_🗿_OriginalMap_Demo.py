@@ -25,7 +25,12 @@ selected_states = [state for state in unique_states if st.sidebar.checkbox(state
 columns_to_display = ["Company name", "Company address", "website_url", "Company Tel", "Company Email"]
 
 # Filter by search term and selected states
-filtered_df = df[df['Company name'].str.contains(search_term, case=False, na=False) if search_term else True]
+# Filter by search term and selected states
+if search_term:
+    filtered_df = df[df['Company name'].str.contains(search_term, case=False, na=False)]
+else:
+    filtered_df = df
+
 filtered_df = filtered_df[filtered_df['STATE'].isin(selected_states)]
 
 # Display the filtered data
