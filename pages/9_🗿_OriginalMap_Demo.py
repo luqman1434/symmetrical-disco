@@ -14,10 +14,21 @@ df = load_data()
 # Streamlit App UI
 st.title('Company Search App')
 
+# Custom styles to expand table width
+st.markdown("""
+<style>
+.dataframe {
+    white-space: nowrap;
+    width: 100%;
+    overflow: scroll;
+}
+</style>
+""", unsafe_allow_html=True)
+
 # Generate checkboxes for each state in the sidebar
 unique_states = sorted(df['STATE'].dropna().unique())
 
-# Add a "Select All" checkbox
+# Add a "Select All" checkbox in the sidebar
 select_all = st.sidebar.checkbox("Select All", True)
 
 if select_all:
@@ -41,7 +52,8 @@ else:
 
 filtered_df = filtered_df[filtered_df['STATE'].isin(selected_states)]
 
-# Display the filtered data
-st.write(filtered_df[columns_to_display])
+# Display the filtered data using a beta container
+with st.beta_container():
+    st.write(filtered_df[columns_to_display])
 
 # Run this by typing 'streamlit run app.py' in the terminal
