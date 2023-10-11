@@ -63,17 +63,14 @@ merged_gdf = geojson_data.merge(joined_data, on=["NAME_1", "NAME_2"], how="left"
 merged_gdf['count'].fillna(0, inplace=True)
 threshold_scale = [0, 1, 2, 4, 8, 16, 32, 64, 128, 200, 300, 400]
 
+# Modify the marker loop to embed the data in a clickable link
 for itp_data in filtered_data.to_dict(orient='records'):
     latitude = itp_data['map_latitude']
     longitude = itp_data['map_longitude']
     company_name = itp_data['Company name']
     company_address = itp_data['Company address']
-    popup_name = '<strong>' + str(company_name) + '</strong>\n' + str(company_address)
-    
-    # Embed the data in the HTML, which the user can click to "copy"
-    embedded_data = '<div data-name="' + company_name + '" data-address="' + company_address + '" onclick="window.clickedCompany=this;">' + popup_name + '</div>'
-    popup = folium.Popup(embedded_data, max_width=300)
-    marker = folium.Marker(location=[latitude, longitude], tooltip=company_name, popup=popup)
+    link = f"<a href='/?company_name={company_name}&company_address={company_address}' target='_self'>{company_name}</a>"
+    marker = folium.Marker(location=[latitude, longitude], tooltip=company_name, popup=link)
     marker.add_to(map_my)
 
 show_choropleth = st.checkbox("Show Choropleth", value=False)
@@ -84,26 +81,16 @@ map_my.save('itp_area_map.html')
 p = open('itp_area_map.html')
 components.html(p.read(), 800, 480)
 
-# JavaScript to get the clicked company data and set the session state
-js_code = """
-<script>
-window.clickedCompany = null;
-function saveClickedCompany(){
-    if(window.clickedCompany){
-        const name = window.clickedCompany.getAttribute('data-name');
-        const address = window.clickedCompany.getAttribute('data-address');
-        window.Streamlit.setSessionState({'selected_company': {'name': name, 'address': address}});
+# Extract the company details from the URL parameters
+params = st.experimental_get_query_params()
+if 'company_name' in params and 'company_address' in params:
+    st.session_state.selected_company = {
+        "name": params['company_name'][0],
+        "address": params['company_address'][0]
     }
-}
-</script>
-"""
-components.html(js_code, height=0)
 
-# Using session state to show the company details
-if "selected_company" not in st.session_state:
-    st.session_state.selected_company = {"name": "", "address": ""}
-
-if st.sidebar.button("Show Clicked Company Details"):
+# Display the company details from the session state
+if "selected_company" in st.session_state:
     company_name = st.session_state.selected_company["name"]
     company_address = st.session_state.selected_company["address"]
     st.sidebar.markdown("### Company Details")
