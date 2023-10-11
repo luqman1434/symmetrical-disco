@@ -52,8 +52,7 @@ else:
 
 filtered_df = filtered_df[filtered_df['STATE'].isin(selected_states)]
 
-# Display the filtered data using a beta container
-with st.beta_container():
-    st.write(filtered_df[columns_to_display])
+# Display the filtered data
+st.write(filtered_df[columns_to_display])
 
 # Run this by typing 'streamlit run app.py' in the terminal
