@@ -14,12 +14,12 @@ df = load_data()
 # Streamlit App UI
 st.title('Company Search App')
 
-# Text Input for Company Name Search
-search_term = st.text_input("Enter Company Name:")
+# Text Input for Company Name Search in the sidebar
+search_term = st.sidebar.text_input("Enter Company Name:")
 
-# MultiSelect for State Filter
+# Generate checkboxes for each state in the sidebar
 unique_states = sorted(df['STATE'].dropna().unique())
-selected_states = st.multiselect("Filter by State:", unique_states, default=unique_states)
+selected_states = [state for state in unique_states if st.sidebar.checkbox(state, True)]
 
 # Define columns to display
 columns_to_display = ["Company name", "Company address", "website_url", "Company Tel", "Company Email"]
