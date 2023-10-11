@@ -17,18 +17,18 @@ st.title('Company Search App')
 # Text Input for Company Name Search
 search_term = st.text_input("Enter Company Name:")
 
+# MultiSelect for State Filter
+unique_states = sorted(df['STATE'].dropna().unique())
+selected_states = st.multiselect("Filter by State:", unique_states, default=unique_states)
+
 # Define columns to display
 columns_to_display = ["Company name", "Company address", "website_url", "Company Tel", "Company Email"]
 
-# Create a placeholder for the data display
-data_display = st.empty()
+# Filter by search term and selected states
+filtered_df = df[df['Company name'].str.contains(search_term, case=False, na=False) if search_term else True]
+filtered_df = filtered_df[filtered_df['STATE'].isin(selected_states)]
 
-if search_term:
-    # Filter dataframe based on user input
-    results = df[df['Company name'].str.contains(search_term, case=False, na=False)]
-    data_display.write(results[columns_to_display])
-else:
-    # If no search term is entered, display all the companies
-    data_display.write(df[columns_to_display])
+# Display the filtered data
+st.write(filtered_df[columns_to_display])
 
 # Run this by typing 'streamlit run app.py' in the terminal
