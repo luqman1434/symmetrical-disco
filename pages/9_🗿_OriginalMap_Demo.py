@@ -19,7 +19,7 @@ search_term = st.text_input("Enter Company Name:")
 
 if search_term:
     # Filter dataframe based on user input
-    results = df[df['Company'].str.contains(search_term, case=False, na=False)]
+    results = df[df['Company name'].str.contains(search_term, case=False, na=False)]
 
     # Display results
     st.write(results)
