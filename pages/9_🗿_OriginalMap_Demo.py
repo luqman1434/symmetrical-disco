@@ -16,7 +16,16 @@ st.title('Company Search App')
 
 # Generate checkboxes for each state in the sidebar
 unique_states = sorted(df['STATE'].dropna().unique())
-selected_states = [state for state in unique_states if st.sidebar.checkbox(state, True)]
+
+# Add a "Select All" checkbox
+select_all = st.sidebar.checkbox("Select All", True)
+
+if select_all:
+    selected_states = unique_states
+    for state in unique_states:
+        st.sidebar.checkbox(state, value=True, key=state)
+else:
+    selected_states = [state for state in unique_states if st.sidebar.checkbox(state, False, key=state)]
 
 # Text Input for Company Name Search above the table
 search_term = st.text_input("Enter Company Name:")
