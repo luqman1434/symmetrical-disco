@@ -9,6 +9,10 @@ from branca.element import Figure
 from shapely.geometry import Point
 import streamlit.components.v1 as components
 
+# Initialize session state
+if 'selected_company' not in st.session_state:
+    st.session_state.selected_company = {"name": "", "address": ""}
+
 st.set_page_config(page_title="2nd Graph Choropleth Demo", page_icon="🗺")
 st.markdown("# 2nd Graph Choropleth Demo")
 
@@ -69,8 +73,12 @@ for itp_data in filtered_data.to_dict(orient='records'):
     longitude = itp_data['map_longitude']
     company_name = itp_data['Company name']
     company_address = itp_data['Company address']
-    link = f"<a href='/?company_name={company_name}&company_address={company_address}' target='_self'>{company_name}</a>"
-    marker = folium.Marker(location=[latitude, longitude], tooltip=company_name, popup=link)
+    
+    # Embed the data in a clickable link that updates the session state and reruns the app
+    popup_content = f"""
+    <a href="javascript:void(0)" onclick="window.Streamlit.setSessionState({{selected_company: {{name: '{company_name}', address: '{company_address}'}}}}); window.Streamlit.experimentalRerun(true);">{company_name}</a>
+    """
+    marker = folium.Marker(location=[latitude, longitude], tooltip=company_name, popup=popup_content)
     marker.add_to(map_my)
 
 show_choropleth = st.checkbox("Show Choropleth", value=False)
@@ -81,18 +89,10 @@ map_my.save('itp_area_map.html')
 p = open('itp_area_map.html')
 components.html(p.read(), 800, 480)
 
-# Extract the company details from the URL parameters
-params = st.experimental_get_query_params()
-if 'company_name' in params and 'company_address' in params:
-    st.session_state.selected_company = {
-        "name": params['company_name'][0],
-        "address": params['company_address'][0]
-    }
-
 # Display the company details from the session state
-if "selected_company" in st.session_state:
-    company_name = st.session_state.selected_company["name"]
-    company_address = st.session_state.selected_company["address"]
+company_name = st.session_state.selected_company["name"]
+company_address = st.session_state.selected_company["address"]
+if company_name and company_address:
     st.sidebar.markdown("### Company Details")
     st.sidebar.text("Name: " + company_name)
     st.sidebar.text("Address: " + company_address)
