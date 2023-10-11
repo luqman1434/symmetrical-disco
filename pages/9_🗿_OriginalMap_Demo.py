@@ -14,17 +14,16 @@ df = load_data()
 # Streamlit App UI
 st.title('Company Search App')
 
-# Text Input for Company Name Search in the sidebar
-search_term = st.sidebar.text_input("Enter Company Name:")
-
 # Generate checkboxes for each state in the sidebar
 unique_states = sorted(df['STATE'].dropna().unique())
 selected_states = [state for state in unique_states if st.sidebar.checkbox(state, True)]
 
+# Text Input for Company Name Search above the table
+search_term = st.text_input("Enter Company Name:")
+
 # Define columns to display
 columns_to_display = ["Company name", "Company address", "website_url", "Company Tel", "Company Email"]
 
-# Filter by search term and selected states
 # Filter by search term and selected states
 if search_term:
     filtered_df = df[df['Company name'].str.contains(search_term, case=False, na=False)]
