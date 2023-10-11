@@ -31,6 +31,7 @@ def plot_choropleth(map_obj, show_choropleth=True):
         folium.GeoJsonTooltip(fields=['NAME_1', 'NAME_2', 'count'], aliases=['State', 'District', 'Count']).add_to(choropleth.geojson)
 
 st.title('Available ITP companies in Malaysia')
+
 file_input = 'MMU ITP List 13_9_9_11.xlsx'
 geojson_file = "msia_district.geojson"
 
@@ -45,6 +46,7 @@ itp_list_state = gpd.GeoDataFrame(itp_list_state, geometry='geometry')
 
 selected_states = st.multiselect('Select States', itp_list_state['STATE'].unique())
 filtered_data = itp_list_state[itp_list_state['STATE'].isin(selected_states)]
+
 joined_data = gpd.sjoin(geojson_data, filtered_data, op="contains").groupby(["NAME_1", "NAME_2"]).size().reset_index(name="count")
 merged_gdf = geojson_data.merge(joined_data, on=["NAME_1", "NAME_2"], how="left")
 merged_gdf['count'].fillna(0, inplace=True)
@@ -57,7 +59,7 @@ for itp_data in filtered_data.to_dict(orient='records'):
     company_name = itp_data['Company name']
     popup_content = """
     <strong>{}</strong><br>{}<br>
-    <a href="?company={}" target="_self">Show Details</a>
+    <a href="javascript:void(0);" onclick="window.history.replaceState(null, null, '?company={}');window.location.reload();">Show Details</a>
     """.format(itp_data['Company name'], itp_data['Company address'], company_name)
     popup = folium.Popup(popup_content, max_width=300)
     folium.Marker(location=[latitude, longitude], popup=popup, tooltip=company_name).add_to(map_my)
@@ -77,19 +79,3 @@ if selected_company:
     st.sidebar.text("Company name: " + company_details['Company name'])
     st.sidebar.text("Company address: " + company_details['Company address'])
     # ... Display other details ...
-# ... Display other details ...
-
-# For the purpose of demonstration, if there are more columns in the `filtered_data`, you can display them as well. For instance:
-    st.sidebar.text("Company phone: " + str(company_details.get('Company phone', 'N/A')))
-    st.sidebar.text("Company email: " + str(company_details.get('Company email', 'N/A')))
-    # You can continue to add more fields as needed.
-
-# Additional Streamlit elements for user interactivity or information display can follow here, such as:
-st.markdown("### Instructions")
-st.write("To view details of a specific company, click on the 'Show Details' link in the popup of each marker. The detailed information will then appear in the sidebar.")
-
-# Finally, if you want to give an option for users to reset the selection (clear the sidebar details), you can add a button:
-if st.button("Reset Selection"):
-    # This will clear the URL parameters and hence clear the sidebar details upon refresh.
-    st.experimental_set_query_params()
-    st.experimental_rerun()
