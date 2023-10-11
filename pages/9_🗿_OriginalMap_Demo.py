@@ -22,7 +22,7 @@ columns_to_display = ["Company name", "Company address", "website_url", "Company
 
 if search_term:
     # Filter dataframe based on user input
-    results = df[df['Company Name'].str.contains(search_term, case=False, na=False)]
+    results = df[df['Company name'].str.contains(search_term, case=False, na=False)]
 
     # Display only the specified columns from the results
     st.write(results[columns_to_display])
