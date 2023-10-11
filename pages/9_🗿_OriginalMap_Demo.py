@@ -54,16 +54,24 @@ filtered_df = filtered_df[filtered_df['STATE'].isin(selected_states)]
 
 # Define a function to create an HTML card for each company
 def create_card(row):
+    # Conditional components based on NaN values
+    company_name = f"<h4>{row['Company name']}</h4>" if not pd.isna(row['Company name']) else ""
+    company_address = f"<p>{row['Company address']}</p>" if not pd.isna(row['Company address']) else ""
+    website_url = f"<p><a href='{row['website_url']}' target='_blank'>{row['website_url']}</a></p>" if not pd.isna(row['website_url']) else ""
+    company_tel = f"<p>{row['Company Tel']}</p>" if not pd.isna(row['Company Tel']) else ""
+    company_email = f"<p>{row['Company Email']}</p>" if not pd.isna(row['Company Email']) else ""
+    
     card = f"""
-    <div style="border:1px solid #eee; border-radius:5px; padding:10px; margin:5px; width: 30%; height: 350px; overflow: auto; display:inline-block; vertical-align:top">
-        <h4>{row['Company name']}</h4>
-        <p>{row['Company address']}</p>
-        <p><a href="{row['website_url']}" target="_blank">{row['website_url']}</a></p>
-        <p>{row['Company Tel']}</p>
-        <p>{row['Company Email']}</p>
+    <div style="border:1px solid #eee; border-radius:5px; padding:10px; margin:5px; width: 30%; height: 300px; overflow: auto; display:inline-block; vertical-align:top">
+        {company_name}
+        {company_address}
+        {website_url}
+        {company_tel}
+        {company_email}
     </div>
     """
     return card
+
 
 
 # Convert the filtered DataFrame to HTML cards
