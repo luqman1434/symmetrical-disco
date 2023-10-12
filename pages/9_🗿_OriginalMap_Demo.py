@@ -12,9 +12,6 @@ def load_data():
 
 df = load_data()
 
-# Exclude companies where STATE is NaN (empty)
-df = df.dropna(subset=['STATE'])
-
 # Streamlit App UI
 st.title('Company Search App')
 
@@ -31,8 +28,8 @@ st.markdown("""
 
 st.sidebar.header('Filter by State')
 
-# Generate checkboxes for each state in the sidebar (exclude NaN values)
-unique_states = sorted([state for state in df['STATE'].unique() if state is not None and state == state])
+# Generate checkboxes for each state in the sidebar
+unique_states = sorted(df['STATE'].dropna().unique())
 
 # Add a "Select All" checkbox in the sidebar
 select_all = st.sidebar.checkbox("Select All", True)
@@ -47,6 +44,7 @@ else:
 # Text Input for Company Name Search above the table
 search_term = st.text_input("Enter Company Name:")
 
+# Define columns to display
 columns_to_display = ["Company name", "Company address", "website_url", "Company Tel", "Company Email"]
 
 # Filter by search term and selected states
@@ -67,7 +65,7 @@ def create_card(row):
     company_email = escape(str(row['Company Email'])) if not pd.isna(row['Company Email']) else ""
 
     card = f"""
-    <div style="border:1px solid #eee; border-radius:5px; padding:10px; margin:5px; width: 30%; height: 300px; overflow: auto; display:inline-block; vertical-align:top">
+    <div style="border:1px solid #eee; border-radius:5px; padding:10px; margin:5px; width: 30%; height: auto; overflow: auto; display:inline-block; vertical-align:top">
         <h4>{company_name}</h4>
         <p>{company_address}</p>
         <p>{website_url}</p>
