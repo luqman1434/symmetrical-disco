@@ -47,6 +47,8 @@ else:
 # Text Input for Company Name Search above the table
 search_term = st.text_input("Enter Company Name:")
 
+columns_to_display = ["Company name", "Company address", "website_url", "Company Tel", "Company Email"]
+
 # Filter by search term and selected states
 if search_term:
     filtered_df = df[df['Company name'].str.contains(search_term, case=False, na=False)]
