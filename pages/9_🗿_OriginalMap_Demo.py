@@ -1,7 +1,5 @@
-# app.py
 import streamlit as st
 import pandas as pd
-from html import escape
 
 # Load the dataset
 @st.cache
@@ -15,17 +13,7 @@ df = load_data()
 # Streamlit App UI
 st.title('Company Search App')
 
-# Custom styles to expand table width
-st.markdown("""
-<style>
-.dataframe {
-    white-space: nowrap;
-    width: 100%;
-    overflow: scroll;
-}
-</style>
-""", unsafe_allow_html=True)
-
+# Title for the filters in the sidebar
 st.sidebar.header('Filter by State')
 
 # Generate checkboxes for each state in the sidebar
@@ -44,9 +32,6 @@ else:
 # Text Input for Company Name Search above the table
 search_term = st.text_input("Enter Company Name:")
 
-# Define columns to display
-columns_to_display = ["Company name", "Company address", "website_url", "Company Tel", "Company Email"]
-
 # Filter by search term and selected states
 if search_term:
     filtered_df = df[df['Company name'].str.contains(search_term, case=False, na=False)]
@@ -55,33 +40,28 @@ else:
 
 filtered_df = filtered_df[filtered_df['STATE'].isin(selected_states)]
 
-# Define a function to create an HTML card for each company
-def create_card(row):
-    # Conditional components based on NaN values and escape the data
-    company_name = f"<h4>{escape(row['Company name'])}</h4>" if not pd.isna(row['Company name']) else ""
-    company_address = f"<p>{escape(row['Company address'])}</p>" if not pd.isna(row['Company address']) else ""
-    website_url = f"<p><a href='{escape(row['website_url'])}' target='_blank'>{escape(row['website_url'])}</a></p>" if not pd.isna(row['website_url']) else ""
-    company_tel = f"<p>{escape(row['Company Tel'])}</p>" if not pd.isna(row['Company Tel']) else ""
-    company_email = f"<p>{escape(row['Company Email'])}</p>" if not pd.isna(row['Company Email']) else ""
-    
-    card = f"""
-    <div style="border:1px solid #eee; border-radius:5px; padding:10px; margin:5px; width: 30%; height: 300px; overflow: auto; display:inline-block; vertical-align:top">
-        {company_name}
-        {company_address}
-        {website_url}
-        {company_tel}
-        {company_email}
-    </div>
-    """
-    return card
+def display_card(row):
+    # Start a container for the card
+    with st.container():
+        
+        # Create three columns (or adjust based on your layout needs)
+        col1, col2, col3 = st.columns([1,1,1])
+        
+        with col1:
+            if not pd.isna(row['Company name']):
+                st.markdown(f"**{row['Company name']}**")
+            if not pd.isna(row['Company address']):
+                st.write(row['Company address'])
+            
+        with col2:
+            if not pd.isna(row['website_url']):
+                st.markdown(f"[{row['website_url']}]({row['website_url']})")
+        
+        with col3:
+            if not pd.isna(row['Company Tel']):
+                st.write(row['Company Tel'])
+            if not pd.isna(row['Company Email']):
+                st.write(row['Company Email'])
 
-
-
-# Convert the filtered DataFrame to HTML cards
-cards = filtered_df[columns_to_display].apply(create_card, axis=1).tolist()
-
-for i in range(0, len(cards), 3):
-    row_cards = ''.join(cards[i:i+3])
-    st.markdown(row_cards, unsafe_allow_html=True)
-
-# Run this by typing 'streamlit run app.py' in the terminal
+for _, row in filtered_df.iterrows():
+    display_card(row)
