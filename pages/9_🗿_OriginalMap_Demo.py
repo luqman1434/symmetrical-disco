@@ -27,7 +27,6 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 st.sidebar.header('Filter by State')
-
 unique_states = sorted(df['STATE'].dropna().unique())
 selected_states = []
 
@@ -40,12 +39,12 @@ if select_all:
         checked = st.sidebar.checkbox(state, value=True, key=state)
         if not checked:
             select_all = False
-            break
+            selected_states.remove(state)
 else:
     for state in unique_states:
         if st.sidebar.checkbox(state, False, key=state):
             selected_states.append(state)
-            
+
 # Text Input for Company Name Search above the table
 search_term = st.text_input("Enter Company Name:")
 
