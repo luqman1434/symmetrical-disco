@@ -52,23 +52,24 @@ filtered_df = filtered_df[filtered_df['STATE'].isin(selected_states)]
 # ...
 
 # Define a function to create an HTML card for each company
+# Define a function to create an HTML card for each company
 def create_card(row):
     company_name_data = str(row['Company name']).strip("'")
-    company_name = f"<h4>{escape(company_name_data)}</h4>" if not pd.isna(row['Company name']) else ""
+    company_name = f"<h4>{company_name_data}</h4>" if not pd.isna(row['Company name']) else ""
 
     company_address_data = str(row['Company address']).strip("'")
-    company_address = f"<p>{escape(company_address_data)}</p>" if not pd.isna(row['Company address']) else ""
+    company_address = f"<p>{company_address_data}</p>" if not pd.isna(row['Company address']) else ""
 
     website_url_data = str(row['website_url']).strip("'")
-    website_url = f"<p><a href='{escape(website_url_data)}' target='_blank'>{escape(website_url_data)}</a></p>" if not pd.isna(row['website_url']) else ""
+    website_url = f"<p><a href='{website_url_data}' target='_blank'>{website_url_data}</a></p>" if not pd.isna(row['website_url']) else ""
 
     # Ensure the phone number has only digits or hyphens
     company_tel_data = ''.join([c for c in str(row['Company Tel']) if c.isdigit() or c == '-'])
-    company_tel = f"<p>{escape(company_tel_data)}</p>" if not pd.isna(row['Company Tel']) else ""
+    company_tel = f"<p>{company_tel_data}</p>" if not pd.isna(row['Company Tel']) else ""
 
     # Strip single quotes around emails
     company_email_data = str(row['Company Email']).strip("'")
-    company_email = f"<p>{escape(company_email_data)}</p>" if not pd.isna(row['Company Email']) else ""
+    company_email = f"<p>{company_email_data}</p>" if not pd.isna(row['Company Email']) else ""
 
     card = f"""
     <div style="border:1px solid #eee; border-radius:5px; padding:10px; margin:5px; width: 30%; height: 300px; overflow: auto; display:inline-block; vertical-align:top">
@@ -80,6 +81,7 @@ def create_card(row):
     </div>
     """
     return card
+
 
 # ...
 
