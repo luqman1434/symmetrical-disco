@@ -65,7 +65,7 @@ def create_card(row):
     company_email = f"<p>{escape(str(row['Company Email']))}</p>" if not pd.isna(row['Company Email']) else "<p></p>"
 
     card = f"""
-    <div style="border:1px solid #eee; border-radius:5px; padding:10px; margin:5px; width: 30%; height: auto; overflow: auto; display:inline-block; vertical-align:top">
+    <div style="border:1px solid #eee; border-radius:5px; padding:10px; margin:5px; width: 30%; height: 300px; overflow: auto; display:inline-block; vertical-align:top">
         {company_name}
         {company_address}
         {website_url}
