@@ -49,6 +49,9 @@ else:
 filtered_df = filtered_df[filtered_df['STATE'].isin(selected_states)]
 
 # Define a function to create an HTML card for each company
+# ...
+
+# Define a function to create an HTML card for each company
 def create_card(row):
     company_name_data = str(row['Company name']).strip("'")
     company_name = f"<h4>{escape(company_name_data)}</h4>" if not pd.isna(row['Company name']) else ""
@@ -59,9 +62,11 @@ def create_card(row):
     website_url_data = str(row['website_url']).strip("'")
     website_url = f"<p><a href='{escape(website_url_data)}' target='_blank'>{escape(website_url_data)}</a></p>" if not pd.isna(row['website_url']) else ""
 
-    company_tel_data = str(row['Company Tel']).strip("'")
+    # Ensure the phone number has only digits or hyphens
+    company_tel_data = ''.join([c for c in str(row['Company Tel']) if c.isdigit() or c == '-'])
     company_tel = f"<p>{escape(company_tel_data)}</p>" if not pd.isna(row['Company Tel']) else ""
 
+    # Strip single quotes around emails
     company_email_data = str(row['Company Email']).strip("'")
     company_email = f"<p>{escape(company_email_data)}</p>" if not pd.isna(row['Company Email']) else ""
 
@@ -75,6 +80,9 @@ def create_card(row):
     </div>
     """
     return card
+
+# ...
+
 
 # Convert the filtered DataFrame to HTML cards
 cards = filtered_df.apply(create_card, axis=1).tolist()
