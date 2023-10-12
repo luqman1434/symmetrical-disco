@@ -58,19 +58,19 @@ filtered_df = filtered_df[filtered_df['STATE'].isin(selected_states)]
 # Define a function to create an HTML card for each company
 def create_card(row):
     # Ensure data is a string or replace with an empty string
-    company_name = escape(str(row['Company name'])) if not pd.isna(row['Company name']) else ""
-    company_address = escape(str(row['Company address'])) if not pd.isna(row['Company address']) else ""
-    website_url = f"<a href='{escape(str(row['website_url']))}' target='_blank'>{escape(str(row['website_url']))}</a>" if not pd.isna(row['website_url']) else ""
-    company_tel = escape(str(row['Company Tel'])) if not pd.isna(row['Company Tel']) else ""
-    company_email = escape(str(row['Company Email'])) if not pd.isna(row['Company Email']) else ""
+    company_name = f"<h4>{escape(str(row['Company name']))}</h4>" if not pd.isna(row['Company name']) else "<h4></h4>"
+    company_address = f"<p>{escape(str(row['Company address']))}</p>" if not pd.isna(row['Company address']) else "<p></p>"
+    website_url = f"<p><a href='{escape(str(row['website_url']))}' target='_blank'>{escape(str(row['website_url']))}</a></p>" if not pd.isna(row['website_url']) else "<p></p>"
+    company_tel = f"<p>{escape(str(row['Company Tel']))}</p>" if not pd.isna(row['Company Tel']) else "<p></p>"
+    company_email = f"<p>{escape(str(row['Company Email']))}</p>" if not pd.isna(row['Company Email']) else "<p></p>"
 
     card = f"""
-    <div style="border:1px solid #eee; border-radius:5px; padding:10px; margin:5px; width: 30%; height: 300px; overflow: auto; display:inline-block; vertical-align:top">
-        <h4>{company_name}</h4>
-        <p>{company_address}</p>
-        <p>{website_url}</p>
-        <p>{company_tel}</p>
-        <p>{company_email}</p>
+    <div style="border:1px solid #eee; border-radius:5px; padding:10px; margin:5px; width: 30%; height: auto; overflow: auto; display:inline-block; vertical-align:top">
+        {company_name}
+        {company_address}
+        {website_url}
+        {company_tel}
+        {company_email}
     </div>
     """
     return card
