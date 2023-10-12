@@ -55,8 +55,11 @@ filtered_df = filtered_df[filtered_df['STATE'].isin(selected_states)]
 
 # Define a function to clean HTML tags from text
 def clean_html_tags(text):
+    # First, convert any HTML encoded characters to their actual representation
+    text_decoded = html.unescape(text)    
+    # Next, strip any existing HTML tags from the string
     clean = re.compile('<.*?>')
-    return re.sub(clean, '', text)
+    return re.sub(clean, '', text_decoded)
 
 # Define a function to create an HTML card for each company
 def create_card(row):
