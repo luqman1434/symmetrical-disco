@@ -30,21 +30,25 @@ st.sidebar.header('Filter by State')
 unique_states = sorted(df['STATE'].dropna().unique())
 selected_states = []
 
-# Add a "Select All" checkbox in the sidebar
+# Handle the "Select All" checkbox
 select_all = st.sidebar.checkbox("Select All", True)
+all_selected = True
 
-if select_all:
-    selected_states = unique_states
-    for state in unique_states:
+for state in unique_states:
+    if select_all:
         checked = st.sidebar.checkbox(state, value=True, key=state)
-        if not checked:
-            select_all = False
-            selected_states.remove(state)
-else:
-    for state in unique_states:
+        if checked:
+            selected_states.append(state)
+        else:
+            all_selected = False
+    else:
         if st.sidebar.checkbox(state, False, key=state):
             selected_states.append(state)
 
+# If not all states are selected, untick "Select All"
+if not all_selected:
+    st.sidebar.checkbox("Select All", False, key="Select All")
+    
 # Text Input for Company Name Search above the table
 search_term = st.text_input("Enter Company Name:")
 
