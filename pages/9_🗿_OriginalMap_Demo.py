@@ -44,8 +44,9 @@ else:
 # Text Input for Company Name Search above the table
 search_term = st.text_input("Enter Company Name:")
 
-# Define columns to display
-columns_to_display = ["Company name", "Company address", "website_url", "Company Tel", "Company Email"]
+# Sorting
+sort_column = st.selectbox('Sort by Column:', ["Company name", "Company address", "website_url", "Company Tel", "Company Email"])
+sort_order = st.radio("Order:", ['Ascending', 'Descending'])
 
 # Filter by search term and selected states
 if search_term:
@@ -54,6 +55,12 @@ else:
     filtered_df = df
 
 filtered_df = filtered_df[filtered_df['STATE'].isin(selected_states)]
+
+# Apply sorting
+if sort_order == 'Ascending':
+    filtered_df = filtered_df.sort_values(by=sort_column, ascending=True)
+else:
+    filtered_df = filtered_df.sort_values(by=sort_column, ascending=False)
 
 # Define a function to create an HTML card for each company
 def create_card(row):
@@ -75,10 +82,8 @@ def create_card(row):
     """
     return card
 
-
-
 # Convert the filtered DataFrame to HTML cards
-cards = filtered_df[columns_to_display].apply(create_card, axis=1).tolist()
+cards = filtered_df.apply(create_card, axis=1).tolist()
 
 for i in range(0, len(cards), 3):
     row_cards = ''.join(cards[i:i+3])
