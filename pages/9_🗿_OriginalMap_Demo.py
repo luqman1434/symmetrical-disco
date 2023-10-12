@@ -26,6 +26,8 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
+st.sidebar.header('Filter by State')
+
 # Generate checkboxes for each state in the sidebar
 unique_states = sorted(df['STATE'].dropna().unique())
 
