@@ -45,8 +45,8 @@ else:
 search_term = st.text_input("Enter Company Name:")
 
 # Sorting
-sort_column = st.selectbox('Sort by Column:', ["Company name", "Company address", "website_url", "Company Tel", "Company Email"])
-sort_order = st.radio("Order:", ['Ascending', 'Descending'])
+st.markdown("### Sort by Company Name")
+sort_order = st.radio("", ['Ascending', 'Descending'])
 
 # Filter by search term and selected states
 if search_term:
@@ -56,11 +56,8 @@ else:
 
 filtered_df = filtered_df[filtered_df['STATE'].isin(selected_states)]
 
-# Apply sorting
-if sort_order == 'Ascending':
-    filtered_df = filtered_df.sort_values(by=sort_column, ascending=True)
-else:
-    filtered_df = filtered_df.sort_values(by=sort_column, ascending=False)
+# Apply sorting for the "Company name" column
+filtered_df = filtered_df.sort_values(by="Company name", ascending=(sort_order == 'Ascending'))
 
 # Define a function to create an HTML card for each company
 def create_card(row):
