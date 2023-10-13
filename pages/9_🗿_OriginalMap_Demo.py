@@ -49,7 +49,7 @@ else:
 search_term = st.text_input("Enter Company Name:")
 
 # Sorting
-st.markdown("### Sort by Company Name")
+#st.markdown("### Sort by Company Name")
 sort_order = st.radio("", ['Ascending', 'Descending'])
 
 # Filter by search term and selected states
