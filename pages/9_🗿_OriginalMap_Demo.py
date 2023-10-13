@@ -48,9 +48,14 @@ else:
 # Text Input for Company Name Search above the table
 search_term = st.text_input("Enter Company Name:")
 
-# Sorting
-st.markdown("### Sort by Company Name")
-sort_order = st.radio("", ['Ascending', 'Descending'])
+# Sorting with buttons side by side
+col1, col2 = st.beta_columns(2)
+if col1.button('Sort by Ascending'):
+    sort_order = 'Ascending'
+elif col2.button('Sort by Descending'):
+    sort_order = 'Descending'
+else:
+    sort_order = 'Ascending'
 
 # Filter by search term and selected states
 if search_term:
