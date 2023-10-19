@@ -8,9 +8,9 @@ itp_df = itp_file.parse(sheet_name=0)
 
 st.title("Nearest Companies Finder")
 
-# User input for coordinates
-latitude = st.number_input("Enter Latitude:")
-longitude = st.number_input("Enter Longitude:")
+# User input for coordinates with more decimal places
+latitude = st.number_input("Enter Latitude:", format="%.6f")
+longitude = st.number_input("Enter Longitude:", format="%.6f")
 
 spec = "'EB01'"
 min_dist = 3.0 / 111
@@ -35,5 +35,3 @@ if nearest_company:
     st.dataframe(nearest_company_df)
 else:
     st.write("No matching companies found within the specified distance.")
-
-# Save the Streamlit app as a .py file and run it with `streamlit run your_app.py`
