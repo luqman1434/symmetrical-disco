@@ -1,4 +1,4 @@
-!pip install geopy
+pip install geopy
 
 import streamlit as st
 import math
