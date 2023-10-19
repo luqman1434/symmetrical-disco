@@ -12,29 +12,34 @@ st.title("Nearest Companies Finder")
 latitude = st.number_input("Enter Latitude:", format="%.6f")
 longitude = st.number_input("Enter Longitude:", format="%.6f")
 
-# Multiselect for specializations
-available_specs = ['EB01', 'EB02', 'EB03', 'EB04', 'DD09', 'DD14', 'EF01', 'KB04', 'KFO01', 'EB10']
-selected_specs = st.multiselect("Select Specializations:", available_specs)
+# Text input for specialization (partial match)
+spec_input = st.text_input("Enter Specialization (Partial Match):")
 
 # User input for X value
 X = st.number_input("Enter X value:")
 min_dist = X / 111
 
 nearest_company = []
-for spec in selected_specs:
-    selected_company = itp_df.loc[itp_df['Specialization'] == spec]
-    for index, company in selected_company.iterrows():
-        xy1 = [latitude, longitude]
-        xy2 = [company['map_latitude'], company['map_longitude']]
-        distance = math.dist(xy1, xy2)
-        if distance <= min_dist:
-            temp_dict = {
-                'Company name': company['Company name'],
-                'Company address': company['Company address'],
-                'Distance from location (km)': distance * 111,
-                'Specialization': company['Specialization']
-            }
-            nearest_company.append(temp_dict)
+
+if spec_input:
+    # Filter the DataFrame for rows where 'Specialization' contains the user input
+    selected_company = itp_df[itp_df['Specialization'].str.contains(spec_input)]
+else:
+    # If no input provided, consider all companies
+    selected_company = itp_df
+
+for index, company in selected_company.iterrows():
+    xy1 = [latitude, longitude]
+    xy2 = [company['map_latitude'], company['map_longitude']]
+    distance = math.dist(xy1, xy2)
+    if distance <= min_dist:
+        temp_dict = {
+            'Company name': company['Company name'],
+            'Company address': company['Company address'],
+            'Distance from location (km)': distance * 111,
+            'Specialization': company['Specialization']
+        }
+        nearest_company.append(temp_dict)
 
 if nearest_company:
     nearest_company_df = pd.DataFrame(nearest_company)
