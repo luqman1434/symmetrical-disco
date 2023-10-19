@@ -7,3 +7,4 @@ branca
 folium
 streamlit_folium
 plotly.express
+geopy==2.2.0
