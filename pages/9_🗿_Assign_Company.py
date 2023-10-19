@@ -15,8 +15,11 @@ st.title("Nearest Companies Finder")
 latitude = st.number_input("Enter Latitude:", format="%.6f")
 longitude = st.number_input("Enter Longitude:", format="%.6f")
 
-# Text input for partial specialization search
-spec_input = st.text_input("Enter Specialization (Partial Match):")
+# Multiselect input for specialization search
+spec_inputs = st.multiselect(
+    "Select Specializations:",
+    options=['EB01', 'EB02', 'EB03', 'EB04', 'DD09', 'DD14', 'EF01', 'KB04', 'KFO01', 'EB10']
+)
 
 # User input for X value
 X = st.number_input("Enter X value:")
@@ -24,12 +27,9 @@ min_dist = X / 111
 
 nearest_company = []
 
-if not spec_input:
-    spec_input = ''  # If no input provided, consider all specializations
-
 for index, company in itp_df.iterrows():
     company_specializations = company['Specialization'].split(', ')
-    matching_specs = [spec for spec in company_specializations if spec_input in spec]  # Get all matching specializations
+    matching_specs = [spec for spec in company_specializations if any(input_spec in spec for input_spec in spec_inputs)]
     if matching_specs:  # Only proceed if there are any matching specializations
         xy1 = [latitude, longitude]
         xy2 = [company['map_latitude'], company['map_longitude']]
