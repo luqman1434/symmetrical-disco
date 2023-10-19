@@ -1,3 +1,4 @@
+
 import streamlit as st
 import math
 import pandas as pd
@@ -9,13 +10,13 @@ itp_df = itp_file.parse(sheet_name=0)
 st.title("Nearest Companies Finder")
 
 # User input for coordinates with more decimal places
-latitude = st.number_input("Enter Latitude:", format="%.6f", step=1.0, key=None)
-longitude = st.number_input("Enter Longitude:", format="%.6f", step=1.0, key=None)
+latitude = st.number_input("Enter Latitude:", format="%.6f")
+longitude = st.number_input("Enter Longitude:", format="%.6f")
 
 spec = "'EB01'"
 
 # User input for X value
-X = st.number_input("Enter X value:", step=1.0, key=None)
+X = st.number_input("Enter X value:")
 min_dist = X / 111
 
 nearest_company = []
