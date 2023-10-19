@@ -1,7 +1,6 @@
 import streamlit as st
 import math
 import pandas as pd
-from geopy.geocoders import Nominatim
 
 # Load the Excel file
 itp_file = pd.ExcelFile('FACULTY_ASSIGNED_SPECIALIZATION.xlsx')
@@ -9,25 +8,10 @@ itp_df = itp_file.parse(sheet_name=0)
 
 st.title("Nearest Companies Finder")
 
-# Sidebar section for geocoding
-st.sidebar.title("Geocode Location")
-location = st.sidebar.text_input("Enter a location/address for geocoding:")
+# User input for coordinates with more decimal places
+latitude = st.number_input("Enter Latitude:", format="%.6f")
+longitude = st.number_input("Enter Longitude:", format="%.6f")
 
-geocoder = Nominatim(user_agent="geocoding_app")
-
-if location:
-    location_data = geocoder.geocode(location)
-    if location_data:
-        st.sidebar.write("Location Details:")
-        st.sidebar.write(f"Address: {location_data.address}")
-        st.sidebar.write(f"Latitude: {location_data.latitude}")
-        st.sidebar.write(f"Longitude: {location_data.longitude}")
-
-        # User input for coordinates with more decimal places
-        latitude = location_data.latitude
-        longitude = location_data.longitude
-
-# Main content for nearest companies
 spec = "'EB01'"
 
 # User input for X value
