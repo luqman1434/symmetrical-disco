@@ -11,9 +11,12 @@ itp_df['Specialization'] = itp_df['Specialization'].astype(str).str.replace("'",
 
 st.title("Nearest Companies Finder")
 
-# User input for coordinates with more decimal places
-latitude = st.number_input("Enter Latitude:", format="%.6f")
-longitude = st.number_input("Enter Longitude:", format="%.6f")
+# Create two columns for latitude and longitude input
+col1, col2 = st.columns(2)
+
+# User input for coordinates with more decimal places, placed side by side
+latitude = col1.number_input("Enter Latitude:", format="%.6f")
+longitude = col2.number_input("Enter Longitude:", format="%.6f")
 
 # Multiselect input for specialization search
 spec_inputs = st.multiselect(
