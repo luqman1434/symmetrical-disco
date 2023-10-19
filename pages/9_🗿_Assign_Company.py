@@ -9,13 +9,13 @@ itp_df = itp_file.parse(sheet_name=0)
 st.title("Nearest Companies Finder")
 
 # User input for coordinates with more decimal places
-latitude = st.number_input("Enter Latitude:", format="%.6f")
-longitude = st.number_input("Enter Longitude:", format="%.6f")
+latitude = st.number_input("Enter Latitude:", format="%.6f", step=1.0, key=None)
+longitude = st.number_input("Enter Longitude:", format="%.6f", step=1.0, key=None)
 
 spec = "'EB01'"
 
 # User input for X value
-X = st.number_input("Enter X value:")
+X = st.number_input("Enter X value:", step=1.0, key=None)
 min_dist = X / 111
 
 nearest_company = []
