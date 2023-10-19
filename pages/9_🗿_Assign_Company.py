@@ -13,7 +13,10 @@ latitude = st.number_input("Enter Latitude:", format="%.6f")
 longitude = st.number_input("Enter Longitude:", format="%.6f")
 
 spec = "'EB01'"
-min_dist = 3.0 / 111
+
+# User input for X value
+X = st.number_input("Enter X value:")
+min_dist = X / 111
 
 nearest_company = []
 selected_company = itp_df.loc[itp_df['Specialization'] == spec]
