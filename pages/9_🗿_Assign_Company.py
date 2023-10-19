@@ -21,7 +21,7 @@ longitude = col2.number_input("Enter Longitude:", format="%.6f")
 # Multiselect input for specialization search
 spec_inputs = st.multiselect(
     "Select Specializations:",
-    options=['EB01', 'EB02', 'EB03', 'EB04', 'DD09', 'DD14', 'EF01', 'KB04', 'KFO01', 'EB10']
+    options=['EB01', 'EB02', 'EB03', 'EB04', 'DD09', 'DD14', 'EF01', 'KB04', 'KFO01', 'EB10', 'NONE']
 )
 
 # User input for X value
@@ -33,6 +33,8 @@ nearest_company = []
 for index, company in itp_df.iterrows():
     company_specializations = company['Specialization'].split(', ')
     matching_specs = [spec for spec in company_specializations if any(input_spec in spec for input_spec in spec_inputs)]
+    if 'NONE' in spec_inputs and company['Specialization'] == '':
+        matching_specs.append('NONE')
     if matching_specs:  # Only proceed if there are any matching specializations
         xy1 = [latitude, longitude]
         xy2 = [company['map_latitude'], company['map_longitude']]
