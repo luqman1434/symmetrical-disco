@@ -29,12 +29,13 @@ if not spec_input:
 
 for index, company in itp_df.iterrows():
     company_specializations = company['Specialization'].split(', ')
-    for spec in company_specializations:
-        if spec_input in spec:
-            xy1 = [latitude, longitude]
-            xy2 = [company['map_latitude'], company['map_longitude']]
-            distance = math.dist(xy1, xy2)
-            if distance <= min_dist:
+    matching_specs = [spec for spec in company_specializations if spec_input in spec]  # Get all matching specializations
+    if matching_specs:  # Only proceed if there are any matching specializations
+        xy1 = [latitude, longitude]
+        xy2 = [company['map_latitude'], company['map_longitude']]
+        distance = math.dist(xy1, xy2)
+        if distance <= min_dist:
+            for spec in matching_specs:  # Loop through all matching specializations
                 temp_dict = {
                     'Company name': company['Company name'],
                     'Company address': company['Company address'],
