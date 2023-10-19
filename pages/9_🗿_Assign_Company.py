@@ -7,7 +7,7 @@ itp_file = pd.ExcelFile('FACULTY_ASSIGNED_SPECIALIZATION.xlsx')
 itp_df = itp_file.parse(sheet_name=0)
 
 # Remove single quotes from the 'Specialization' column
-itp_df['Specialization'] = itp_df['Specialization'].str.replace("'", "")
+itp_df['Specialization'] = itp_df['Specialization'].astype(str).str.replace("'", "")
 
 st.title("Nearest Companies Finder")
 
