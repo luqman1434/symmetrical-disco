@@ -13,7 +13,7 @@ def load_data():
 df = load_data()
 
 # Streamlit App UI
-st.title('Company Search App')
+st.title('Assigning Company')
 
 # Custom styles to expand table width
 st.markdown("""
