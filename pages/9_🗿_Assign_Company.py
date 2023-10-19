@@ -3,7 +3,7 @@ import math
 import pandas as pd
 
 # Load the Excel file
-itp_file = pd.ExcelFile('output_files/FACULTY_ASSIGNED_SPEC.xlsx')
+itp_file = pd.ExcelFile('FACULTY_ASSIGNED_SPECIALIZATION.xlsx')
 itp_df = itp_file.parse(sheet_name=0)
 
 st.title("Nearest Companies Finder")
