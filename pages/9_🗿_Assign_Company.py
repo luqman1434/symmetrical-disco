@@ -1,3 +1,5 @@
+!pip install geopy
+
 import streamlit as st
 import math
 import pandas as pd
