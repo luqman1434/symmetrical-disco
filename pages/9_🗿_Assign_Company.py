@@ -69,6 +69,17 @@ for index, company in itp_df.iterrows():
 
 if nearest_company:
     nearest_company_df = pd.DataFrame(nearest_company)
+    
+    # Add a selectbox for sorting options
+    sort_option = st.selectbox(
+        "Sort by:",
+        options=["None", "Distance"]
+    )
+    
+    # Sort the DataFrame based on the selected option
+    if sort_option == "Distance":
+        nearest_company_df = nearest_company_df.sort_values(by="Distance from location (km)")
+    
     # Convert the DataFrame to HTML cards
     cards = nearest_company_df.apply(create_card, axis=1).tolist()
     # Join the cards into a single string and display using st.markdown
