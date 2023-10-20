@@ -1,7 +1,8 @@
 import streamlit as st
-import math
 import pandas as pd
+import math
 from html import escape
+from geopy.geocoders import Nominatim
 
 # Define the create_card function
 def create_card(row):
@@ -49,23 +50,7 @@ min_dist = X / 111
 nearest_company = []
 
 for index, company in itp_df.iterrows():
-    company_specializations = company['Specialization'].split(', ')
-    matching_specs = [spec for spec in company_specializations if any(input_spec in spec for input_spec in spec_inputs)]
-    if 'NONE' in spec_inputs and company['Specialization'] == '':
-        matching_specs.append('NONE')
-    if matching_specs:  # Only proceed if there are any matching specializations
-        xy1 = [latitude, longitude]
-        xy2 = [company['map_latitude'], company['map_longitude']]
-        distance = math.dist(xy1, xy2)
-        if distance <= min_dist:
-            for spec in matching_specs:  # Loop through all matching specializations
-                temp_dict = {
-                    'Company name': company['Company name'],
-                    'Company address': company['Company address'],
-                    'Distance from location (km)': distance * 111,
-                    'Specialization': spec
-                }
-                nearest_company.append(temp_dict)
+    # ... (rest of your existing main code)
 
 if nearest_company:
     nearest_company_df = pd.DataFrame(nearest_company)
@@ -87,3 +72,22 @@ if nearest_company:
     st.markdown(cards_html, unsafe_allow_html=True)
 else:
     st.write("No matching companies found within the specified distance.")
+
+# Function to geocode a location
+def geocode_location(location):
+    geolocator = Nominatim(user_agent="geoapiExercises")
+    location = geolocator.geocode(location)
+    if location:
+        return location.latitude, location.longitude
+    return None, None
+
+# Sidebar for geocoding
+st.sidebar.title("Geocoding")
+location_input = st.sidebar.text_input("Enter Location:")
+if location_input:
+    latitude, longitude = geocode_location(location_input)
+    if latitude and longitude:
+        st.sidebar.write(f"Latitude: {latitude}")
+        st.sidebar.write(f"Longitude: {longitude}")
+    else:
+        st.sidebar.write("Location not found.")
