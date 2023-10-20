@@ -91,7 +91,7 @@ else:
 
 # Function to geocode a location
 def geocode_location(location):
-    geolocator = Nominatim(user_agent="geocoding_app")
+    geolocator = Nominatim(user_agent="geoapiExercises")
     location = geolocator.geocode(location)
     if location:
         return location.latitude, location.longitude
