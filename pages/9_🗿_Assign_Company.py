@@ -50,7 +50,23 @@ min_dist = X / 111
 nearest_company = []
 
 for index, company in itp_df.iterrows():
-    # ... (rest of your existing main code)
+    company_specializations = company['Specialization'].split(', ')
+    matching_specs = [spec for spec in company_specializations if any(input_spec in spec for input_spec in spec_inputs)]
+    if 'NONE' in spec_inputs and company['Specialization'] == '':
+        matching_specs.append('NONE')
+    if matching_specs:  # Only proceed if there are any matching specializations
+        xy1 = [latitude, longitude]
+        xy2 = [company['map_latitude'], company['map_longitude']]
+        distance = math.dist(xy1, xy2)
+        if distance <= min_dist:
+            for spec in matching_specs:  # Loop through all matching specializations
+                temp_dict = {
+                    'Company name': company['Company name'],
+                    'Company address': company['Company address'],
+                    'Distance from location (km)': distance * 111,
+                    'Specialization': spec
+                }
+                nearest_company.append(temp_dict)
 
 if nearest_company:
     nearest_company_df = pd.DataFrame(nearest_company)
