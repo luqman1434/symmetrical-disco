@@ -38,7 +38,7 @@ spec_inputs = st.multiselect(
 )
 
 # User input for X value
-X = st.number_input("Enter maximum distance to display the companies:")
+X = st.number_input("Enter maximum distance in KM to display the companies:")
 min_dist = X / 111
 
 nearest_company = []
