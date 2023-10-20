@@ -70,15 +70,15 @@ for index, company in itp_df.iterrows():
 if nearest_company:
     nearest_company_df = pd.DataFrame(nearest_company)
     
-    # Add a selectbox for sorting options
-    sort_option = st.selectbox(
-        "Sort by:",
-        options=["None", "Distance"]
-    )
+    # Add checkboxes for sorting options
+    sort_by_distance = st.checkbox('Sort by Distance')
+    sort_by_name = st.checkbox('Sort by Name')
     
-    # Sort the DataFrame based on the selected option
-    if sort_option == "Distance":
-        nearest_company_df = nearest_company_df.sort_values(by="Distance from location (km)")
+    # Sort the DataFrame based on the selected options
+    if sort_by_distance:
+        nearest_company_df = nearest_company_df.sort_values(by='Distance from location (km)')
+    elif sort_by_name:
+        nearest_company_df = nearest_company_df.sort_values(by='Company name')
     
     # Convert the DataFrame to HTML cards
     cards = nearest_company_df.apply(create_card, axis=1).tolist()
