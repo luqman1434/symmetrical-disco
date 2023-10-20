@@ -25,7 +25,7 @@ itp_df = itp_file.parse(sheet_name=0)
 
 itp_df['Specialization'] = itp_df['Specialization'].astype(str).str.replace("'", "")
 
-st.title("Nearest Companies Finder")
+st.title("Find Company by Distance")
 
 col1, col2 = st.columns(2)
 
