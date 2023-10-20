@@ -1,6 +1,24 @@
 import streamlit as st
 import math
 import pandas as pd
+from html import escape
+
+# Define the create_card function
+def create_card(row):
+    company_name = escape(str(row['Company name'])) if not pd.isna(row['Company name']) else ""
+    company_address = escape(str(row['Company address'])) if not pd.isna(row['Company address']) else ""
+    distance = f"{row['Distance from location (km)']:.2f} km" if not pd.isna(row['Distance from location (km)']) else ""
+    specialization = escape(str(row['Specialization'])) if not pd.isna(row['Specialization']) else ""
+    
+    card = f"""
+    <div style="border:1px solid #eee; border-radius:5px; padding:10px; margin:5px; width: 30%; height: 300px; overflow: auto; display:inline-block; vertical-align:top">
+        <h4>{company_name}</h4>
+        <p>{company_address}</p>
+        <p>Distance: {distance}</p>
+        <p>Specialization: {specialization}</p>
+    </div>
+    """
+    return card
 
 # Load the Excel file
 itp_file = pd.ExcelFile('FACULTY_ASSIGNED_SPECIALIZATION.xlsx')
@@ -51,6 +69,10 @@ for index, company in itp_df.iterrows():
 
 if nearest_company:
     nearest_company_df = pd.DataFrame(nearest_company)
-    st.dataframe(nearest_company_df)
+    # Convert the DataFrame to HTML cards
+    cards = nearest_company_df.apply(create_card, axis=1).tolist()
+    # Join the cards into a single string and display using st.markdown
+    cards_html = ''.join(cards)
+    st.markdown(cards_html, unsafe_allow_html=True)
 else:
     st.write("No matching companies found within the specified distance.")
