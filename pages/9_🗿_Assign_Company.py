@@ -52,8 +52,8 @@ nearest_company = []
 for index, company in itp_df.iterrows():
     # ... (rest of your existing main code)
 
- if nearest_company:
-   nearest_company_df = pd.DataFrame(nearest_company)
+if nearest_company:
+    nearest_company_df = pd.DataFrame(nearest_company)
     
     # Add checkboxes for sorting options
     sort_by_distance = st.checkbox('Sort by Distance')
