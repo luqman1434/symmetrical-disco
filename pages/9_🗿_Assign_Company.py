@@ -4,7 +4,6 @@ import math
 from html import escape
 from geopy.geocoders import Nominatim
 
-# Define the create_card function
 def create_card(row):
     company_name = escape(str(row['Company name'])) if not pd.isna(row['Company name']) else ""
     company_address = escape(str(row['Company address'])) if not pd.isna(row['Company address']) else ""
@@ -21,30 +20,25 @@ def create_card(row):
     """
     return card
 
-# Load the Excel file
 itp_file = pd.ExcelFile('FACULTY_ASSIGNED_SPECIALIZATION.xlsx')
 itp_df = itp_file.parse(sheet_name=0)
 
-# Remove single quotes from the 'Specialization' column
 itp_df['Specialization'] = itp_df['Specialization'].astype(str).str.replace("'", "")
 
 st.title("Nearest Companies Finder")
 
-# Create two columns for latitude and longitude input
 col1, col2 = st.columns(2)
 
-# User input for coordinates with more decimal places, placed side by side
 latitude = col1.number_input("Enter Latitude:", format="%.6f")
 longitude = col2.number_input("Enter Longitude:", format="%.6f")
 
-# Multiselect input for specialization search
 spec_inputs = st.multiselect(
     "Select Specializations:",
     options=['EB01', 'EB02', 'EB03', 'EB04', 'DD09', 'DD14', 'EF01', 'KB04', 'KFO01', 'EB10', 'NONE']
 )
 
 # User input for X value
-X = st.number_input("Enter X value:")
+X = st.number_input("Enter maximum distance to display the companies:")
 min_dist = X / 111
 
 nearest_company = []
@@ -71,11 +65,9 @@ for index, company in itp_df.iterrows():
 if nearest_company:
     nearest_company_df = pd.DataFrame(nearest_company)
     
-    # Add checkboxes for sorting options
     sort_by_distance = st.checkbox('Sort by Distance')
     sort_by_name = st.checkbox('Sort by Name')
     
-    # Sort the DataFrame based on the selected options
     if sort_by_distance:
         nearest_company_df = nearest_company_df.sort_values(by='Distance from location (km)')
     elif sort_by_name:
@@ -83,7 +75,6 @@ if nearest_company:
     
     # Convert the DataFrame to HTML cards
     cards = nearest_company_df.apply(create_card, axis=1).tolist()
-    # Join the cards into a single string and display using st.markdown
     cards_html = ''.join(cards)
     st.markdown(cards_html, unsafe_allow_html=True)
 else:
