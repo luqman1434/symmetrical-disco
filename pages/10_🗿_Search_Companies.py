@@ -12,10 +12,8 @@ def load_data():
 
 df = load_data()
 
-# Streamlit App UI
 st.title('Company Search App')
 
-# Custom styles to expand table width
 st.markdown("""
 <style>
 .dataframe {
@@ -30,7 +28,6 @@ st.sidebar.header('Filter by State')
 unique_states = sorted(df['STATE'].dropna().unique())
 selected_states = []
 
-# Add a "Select All" checkbox in the sidebar
 select_all = st.sidebar.checkbox("Select All", True)
 
 if select_all:
@@ -48,11 +45,8 @@ else:
 # Text Input for Company Name Search above the table
 search_term = st.text_input("Enter Company Name:")
 
-# Sorting
-#st.markdown("### Sort by Company Name")
 sort_order = st.radio("",['Ascending', 'Descending'])
 
-# Filter by search term and selected states
 if search_term:
     filtered_df = df[df['Company name'].str.contains(search_term, case=False, na=False)]
 else:
@@ -83,11 +77,9 @@ def create_card(row):
     """
     return card
 
-# Convert the filtered DataFrame to HTML cards
 cards = filtered_df.apply(create_card, axis=1).tolist()
 
 for i in range(0, len(cards), 3):
     row_cards = ''.join(cards[i:i+3])
     st.markdown(row_cards, unsafe_allow_html=True)
 
-# Run this by typing 'streamlit run app.py' in the terminal
