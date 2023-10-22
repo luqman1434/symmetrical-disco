@@ -1,22 +1,8 @@
 import streamlit as st
 
-#st.set_page_config(
-#    page_title="GLIE",
-#   page_icon="👨‍🎓",
-#)
-
 st.set_page_config(
     page_title="GLIE",
-    page_icon="👨‍🎓",
-    layout="wide",
-    initial_sidebar_state="expanded",
-    theme={
-        'primaryColor': '#f63366',
-        'backgroundColor': '#ffffff',
-        'secondaryBackgroundColor': '#f0f2f6',
-        'textColor': '#262730',
-        'font': 'sans serif'
-    }
+   page_icon="👨‍🎓",
 )
 
 st.write("# GLIE Internship Website 👨‍🎓")
