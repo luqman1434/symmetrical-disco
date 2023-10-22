@@ -3,7 +3,7 @@ import streamlit as st
 st.set_page_config(
     page_title="GLIE",
    page_icon="👨‍🎓",
-)
+ )
 
 st.write("# GLIE Internship Website 👨‍🎓")
 
