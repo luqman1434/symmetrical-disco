@@ -14,7 +14,7 @@ st.write(
     """This version of the map shows how the map works with two different filters. One of the filters toggle the choropleth mask on/off on the filter. Another one of the filters toggle on the activation of the 
     pushpins so we can focus on specific filters inside the map."""
 )
-##sssas
+
 
 import math
 import json
@@ -57,7 +57,7 @@ def plot_choropleth(map_obj, show_choropleth=True):
 if __name__ == '__main__':
     st.title('Available ITP companies in Malaysia')
 
-    file_input = 'MMU ITP List 13_9_9_11.xlsx'
+    file_input = 'mmuITP.xlsx'
     geojson_file = "msia_district.geojson"
 
     text_load_state = st.text('Reading files ...')
